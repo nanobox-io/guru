@@ -1,0 +1,16 @@
+.main-title   {font-size:30px; font-weight:$bold; color:#33658C; border-bottom: #CCE3E9 solid 1px; padding-bottom:10px; margin-bottom: 20px;}
+.features     {margin-top:30px; margin-left:10px;
+  .header     {@include caps(#33658C, 12px); letter-spacing: 0.09em; margin-bottom:10px;
+    &:after   {content:", plus:"; font-size:14px; font-style:italic; text-transform: none; letter-spacing: 0; }
+    &.none    {
+      &:after {content:"."; opacity: 0; }
+    }
+  }
+  .feature    {color:#8FABBF; font-size:14px; font-weight: $semibold; font-style: italic; max-width:130px; margin-bottom:20px;  }
+}
+.plans        {display:flex; align-items: flex-start; justify-content: space-between;}
+.proceed      {position: absolute; bottom:40px; display: flex; width:90%; justify-content: flex-end;
+  .btn        {height:55px; @include caps(white, 17px); background: #19AAF4; display: flex; align-items: center; padding:0 60px; cursor: pointer;
+    &:hover   {background:#007DD7;}
+  }
+}
