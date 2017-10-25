@@ -69,6 +69,19 @@ module.exports = {
       },
       {
         test: /\.svg$/,
+        loader: 'vue-svg-loader',
+        options: {
+          // optional [svgo](https://github.com/svg/svgo) options
+          svgo: {
+            plugins: [
+              {removeDoctype: true},
+              {removeComments: true}
+            ]
+          }
+        }
+      },
+      {
+        test: /\.svgc$/,
         loader  : [
           {
             loader:`${require.resolve('shadow-icons/webpack/shadow-svg-js-loader.js')}`,

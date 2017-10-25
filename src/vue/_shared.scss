@@ -14,3 +14,7 @@
     &:hover   {background:#007DD7;}
   }
 }
+.cost         {font-size:25px; font-weight: $bold; letter-spacing:0.08em;
+  &:before    {content:"$";}
+  &:after     {content:"/mo"; font-size:14px; font-style: italic; font-weight: $semibold; letter-spacing: initial; }
+}

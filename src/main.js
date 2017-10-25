@@ -1,2 +1,1 @@
-module.exports = require('./vue/base')
-require('./assets/images/sprite.png')
+export default require('./vue/base')

@@ -2,13 +2,14 @@
 import choosePlatform      from './choose-platform'
 import chooseCollaboration from './choose-collaboration'
 import chooseSupport       from './choose-support'
+import finalize            from './finalize'
 import {x}                 from 'lexi'
 export default {
   name  : 'guru',
   props : ['model', 'callbacks'],
-  components : {x, choosePlatform, chooseCollaboration, chooseSupport},
+  components : {x, choosePlatform, chooseCollaboration, chooseSupport, finalize},
   data() {return {
-    currentPage : 'collaborate'
+    currentPage : 'finalize'
   }},
   methods    : {},
 }
@@ -24,6 +25,7 @@ export default {
     choose-platform(:model="model" v-if="currentPage == 'platform'" )
     choose-collaboration(:model="model" v-if="currentPage == 'collaborate'" )
     choose-support(:model="model" v-if="currentPage == 'support'" )
+    finalize(:model="model" v-if="currentPage == 'finalize'" )
 </template>
 
 <!--

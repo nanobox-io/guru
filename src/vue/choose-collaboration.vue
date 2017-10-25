@@ -31,8 +31,8 @@ export default {
           .feature(v-for="feature in plan.features") {{ feature }}
     .proceed
       transition(name="fade")
-        input(type="text" v-model="teamName" v-if="selectedPlan != 'solo'" placeholder="Name Your Team")
-      .btn Next
+        input(type="text" v-model="teamName" v-if="selectedPlan != 'solo'" :placeholder="`Name Your ${selectedPlan}`")
+      .btn.lifecycle Next
 </template>
 
 <!--
