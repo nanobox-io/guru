@@ -7,19 +7,56 @@ export default {
   components:{checkbox, flux},
   data(){
     return {
-      view : 'register',
-      haveReadTerms : false,
-      customUsername: false,
-      registerUsername : '',
-      registerEmail    : '',
-      registerPassword : '',
+      view           : 'register',
+      haveReadTerms  : false,
+      customUsername : false,
+
+      // Form Fields
+      user      : '',
+      email     : '',
+      password  : '',
+      name      : '',
+      phone     : '',
+      company   : '',
+      role      : '',
+    }
+  },
+  methods:{
+    // REGISTER
+    register(){
+      let vals = {
+        user          : this.user,
+        email         : this.email,
+        password      : this.password,
+        name          : this.name,
+        phone         : this.phone,
+        company       : this.company,
+        role          : this.role,
+        haveReadTerms : this.haveReadTerms
+      }
+      this.$emit('register', vals, ()=>{})
+    },
+    // LOGIN
+    login(){
+      let vals = {
+        user     : this.user,
+        password : this.password
+      }
+      this.$emit('login', vals, ()=>{})
+    },
+    // FORGOT PASSWORD
+    forgotPassword(){
+      let vals = {
+        email : this.email
+      }
+      this.$emit('forgot', vals, ()=>{})
     }
   },
   watch : {
-    registerEmail(val){
+    email(val){
       if(!this.customUsername){
         val = val.split("@")[0].split('+')[0]
-        this.registerUsername =  val.replace(/[^0-9a-zA-Z\-]/g, '-')
+        this.user =  val.replace(/[^0-9a-zA-Z\-]/g, '-')
       }
     },
     customUsername(){
@@ -38,7 +75,8 @@ export default {
 
 <template lang="pug">
   .account
-    flux()
+    flux
+      //- Register
       .register(v-if="view == 'register'" v-bind:class="{full:customUsername}" key="register")
         .switcher
           .item(@click="view = 'login'") I already have an account
@@ -49,57 +87,60 @@ export default {
         flux
           label.username.required(v-if="customUsername" key="a" )
             .txt username
-            input.required(v-model="registerUsername" type="text" ref="username" spellcheck="false")
+            input.required(v-model="user" type="text" ref="username" spellcheck="false")
           label.required(key="b")
             .txt Email
-            input.required(v-model="registerEmail" type="text" spellcheck="false")
+            input.required(v-model="email" type="text" spellcheck="false")
           label.required(key="c")
             .txt password
-            input.required(v-model="registerPassword" type="password" spellcheck="false")
+            input.required(v-model="password" type="password" spellcheck="false")
         br
         .form-row
-          input.optional(type="text" placeholder="Name" spellcheck="false")
-          input.optional(type="text" placeholder="Phone" spellcheck="false")
+          input.optional(type="text" v-model="name"    placeholder="Name"    spellcheck="false")
+          input.optional(type="text" v-model="phone"   placeholder="Phone"   spellcheck="false")
         .form-row
-          input.optional(type="text" placeholder="Company" spellcheck="false")
-          input.optional(type="text" placeholder="Role" spellcheck="false")
+          input.optional(type="text" v-model="company" placeholder="Company" spellcheck="false")
+          input.optional(type="text" v-model="role"    placeholder="Role"    spellcheck="false")
         .terms
           checkbox(v-model="haveReadTerms")
             .label I have read and agree to the
           a(href="https://nanobox.io/legal/" target="BLANK") terms of use
 
         .proceed
-          .username(v-if="registerEmail.length > 0 && !customUsername" )
+          .username(v-if="email.length > 0 && !customUsername" )
             .label Username
-            .user {{ registerUsername }}
+            .user {{ user }}
             .change(@click="customUsername = true") change
-          .btn.lifecycle Submit
+          .btn.lifecycle(@click="register") Submit
 
+      //- Login
       .login(v-if="view == 'login'" key="login")
         .switcher
           .item(@click="view = 'register'") Register
           .item.divider(@click="view = 'reset'") Forgot Password
         .main-title Nanobox : Login
         label
-          .txt username
-          input.required(spellcheck="false")
+          .txt username / email
+          input.required(spellcheck="false" v-model="user")
         label
-          .txt Email
-          input.required(v-model="registerEmail" type="text" spellcheck="false")
+          .txt password
+          input.required(v-model="password" type="password" spellcheck="false")
         .terms
           checkbox(v-model="haveReadTerms")
             .label Remember me on the computer
-        .proceed
+        .proceed(@click="login")
           .btn.lifecycle Login
+
+      //- Forgot Password
       .forgot(v-if="view == 'reset'" key="reset")
         .switcher
           .item(@click="view = 'login'") Nevermind, I remember my password
         .main-title Reset Password
         label
           .txt email Address
-          input.required(spellcheck="false")
+          input.required(spellcheck="false" v-model="email")
         .proceed
-          .btn.lifecycle Reset
+          .btn.lifecycle(@click="forgotPassword") Reset
 </template>
 
 <!--

@@ -3,10 +3,6 @@ import PlansShim from './plans-shim'
 export default class MasterShim {
 
   constructor() {
-    this.setDefaults()
-  }
-
-  setDefaults() {
     this.data = {
       // What the user is trying to do. Select a plan, etc
       action : {
@@ -16,12 +12,13 @@ export default class MasterShim {
 
       // Info about the user
       user : {
-        isLoggedIn       : true,
+        isLoggedIn       : false,
         hasPaymentMethod : false,
+        teamName         : '',
         currentPlans : {
-          platform      : null,
-          support       : null,
-          collaboration : null,
+          platform      : 'scale',
+          collaboration : 'team',
+          support       : 'pro',
         }
       },
 
@@ -33,18 +30,6 @@ export default class MasterShim {
     }
   }
 
-
-  // ------------------------------------ Sign up with a plan
-
-  selectPlan(category, planId) {
-
-  }
-
-  // ------------------------------------ Default
-
-  getDefault() {
-    return this.data
-  }
 
 }
 

@@ -4,12 +4,6 @@ export default {
   name: 'choose-collaboration',
   props:['model'],
   components:{card},
-  data(){
-    return{
-      selectedPlan:'solo',
-      teamName:'',
-    }
-  }
 }
 </script>
 
@@ -22,7 +16,7 @@ export default {
     .main-title Choose your Collaboration
     .plans
       .plan(v-for="plan in model.plans.collaboration" :key="plan.id")
-        card.team(v-model="selectedPlan" :val="plan.id")
+        card.team(v-model="model.user.currentPlans.collaboration" :val="plan.id")
           .title {{ plan.name }}
           .icon
             .img(:class="plan.id")
@@ -31,7 +25,7 @@ export default {
           .feature(v-for="feature in plan.features") {{ feature }}
     .proceed
       transition(name="fade")
-        input(type="text" v-model="teamName" v-if="selectedPlan != 'solo'" :placeholder="`Name Your ${selectedPlan}`")
+        input(type="text" v-model="model.user.teamName" v-if="model.user.currentPlans.collaboration != 'solo'" :placeholder="`Name Your ${model.user.currentPlans.collaboration}`")
       .btn.lifecycle(@click="$emit('next')") Next
 </template>
 

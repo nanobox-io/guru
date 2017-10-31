@@ -4,14 +4,15 @@ import chooseCollaboration from './choose-collaboration'
 import chooseSupport       from './choose-support'
 import finalize            from './finalize'
 import account             from './account'
-import {x}                 from 'lexi'
+import {x, flux}           from 'lexi'
+
 export default {
   name  : 'guru',
   props : ['model', 'callbacks'],
-  components : {x, choosePlatform, chooseCollaboration, chooseSupport, finalize, account},
+  components : {x, choosePlatform, chooseCollaboration, chooseSupport, finalize, account, flux},
   data() {
     let obj =  {
-      currentPage : 'platform'
+      currentPage : 'platform',
     }
     if( !this.model.user.isLoggedIn )
       obj.currentPage = 'account'
@@ -20,8 +21,8 @@ export default {
   methods    : {
     nextSlide() {
       if(this.currentPage == 'platform'){
-        this.currentPage = 'collaborate'
-      }else if(this.currentPage == 'collaborate'){
+        this.currentPage = 'collaboration'
+      }else if(this.currentPage == 'collaboration'){
         this.currentPage = 'support'
       }else if(this.currentPage == 'support'){
         this.currentPage = 'finalize'
@@ -30,6 +31,14 @@ export default {
   },
   mounted(){
 
+  },
+  computed:{
+    loggedIn(){return this.model.user.isLoggedIn},
+  },
+  watch:{
+    loggedIn(isLoggedIn){
+      this.currentPage = (isLoggedIn)? 'platform' : 'account';
+    }
   }
 }
 </script>
@@ -41,11 +50,11 @@ export default {
 <template lang="pug">
   .guru(v-bind:class="{account:currentPage == 'account'}")
     x.close
-    account(v-if="currentPage == 'account'" model="model")
-    choose-platform(:model="model" v-if="currentPage == 'platform'" @next="nextSlide")
-    choose-collaboration(:model="model" v-if="currentPage == 'collaborate'" @next="nextSlide")
-    choose-support(:model="model" v-if="currentPage == 'support'" @next="nextSlide")
-    finalize(:model="model" v-if="currentPage == 'finalize'" )
+    account(v-if="currentPage == 'account'" model="model" @register="callbacks.register" @login="callbacks.login" @forgot="callbacks.resetPassword" key="account")
+    choose-platform(:model="model" v-if="currentPage == 'platform'" @next="nextSlide" key="platform")
+    choose-collaboration(:model="model" v-if="currentPage == 'collaboration'" @next="nextSlide" key="collaboration")
+    choose-support(:model="model" v-if="currentPage == 'support'" @next="nextSlide" key="support")
+    finalize(:model="model" v-if="currentPage == 'finalize'" @change="currentPage = arguments[0]" key="finalize")
 </template>
 
 <!--

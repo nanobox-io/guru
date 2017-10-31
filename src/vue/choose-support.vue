@@ -4,11 +4,6 @@ export default {
   name: 'choose-support',
   props:['model'],
   components:{card},
-  data(){
-    return{
-      selectedPlan:'community'
-    }
-  }
 }
 </script>
 
@@ -21,7 +16,7 @@ export default {
     .main-title Pick a level of support
     .plans
       .plan(v-for="plan in model.plans.support" :key="plan.name")
-        card.short(v-model="selectedPlan" :val="plan.id")
+        card.short(v-model="model.user.currentPlans.support" :val="plan.id")
           .title {{ plan.name }}
           .cost {{ plan.cost }}
         .features

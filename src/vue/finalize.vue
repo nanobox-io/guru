@@ -1,5 +1,6 @@
 <script type="text/babel">
 import {paypal, creditCard, miniNav} from 'payments'
+import _ from 'lodash'
 export default {
   name: 'finalize',
   components: {paypal, creditCard, miniNav},
@@ -28,6 +29,12 @@ export default {
     ccError(err) {
       console.log( `Error creating credit card : ${err}` )
     },
+
+    // Helpers
+
+    getPlan(category) {
+      return _.find(this.model.plans[category], {id:this.model.user.currentPlans[category] })
+    }
   }
 
 }
@@ -44,19 +51,19 @@ export default {
       .line-items
         .line
           .category Infrastructure
-          .choice Deploy
-          .link Change
-          .cost 0
+          .choice {{getPlan('platform').name}}
+          .link(@click="$emit('change', 'platform')") Change
+          .cost {{getPlan('platform').cost}}
         .line
           .category Infrastructure
-          .choice Deploy
-          .link Change
-          .cost 0
+          .choice {{getPlan('collaboration').name}}
+          .link(@click="$emit('change', 'collaboration')") Change
+          .cost {{getPlan('collaboration').cost}}
         .line
           .category Infrastructure
-          .choice Deploy
-          .link Change
-          .cost 0
+          .choice {{getPlan('support').name}}
+          .link(@click="$emit('change', 'support')") Change
+          .cost {{getPlan('support').cost}}
       .total.cost
         .label Total
         | 200

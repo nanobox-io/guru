@@ -4,11 +4,6 @@ export default {
   name: 'choose-platform',
   props:['model'],
   components:{card},
-  data(){
-    return{
-      selectedPlan:'deploy'
-    }
-  }
 }
 </script>
 
@@ -20,8 +15,8 @@ export default {
   .choose-platform
     .main-title Pick your Platform
     .plans
-      .plan(v-for="plan in model.plans.infrastructure" :key="plan.id")
-        card(v-model="selectedPlan" :val="plan.id")
+      .plan(v-for="plan in model.plans.platform" :key="plan.id")
+        card(v-model="model.user.currentPlans.platform" :val="plan.id")
           .title {{ plan.name }}
           .cost {{ plan.cost }}
         .features

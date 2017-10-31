@@ -1,3 +1,6 @@
 ☐ Add url-loader to the vue init
 ☐ Change the illustrator to generate `.svgc` files? maybe...
   ✔ Add vue-svg-loader     done(√)
+☐ account.vue
+  ☐ Validate the required fields before send
+  ☐ handle any errors after send

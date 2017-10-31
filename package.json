@@ -11,6 +11,7 @@
   },
   "dependencies": {
     "lexi": "tolmark12/nanobox-lexi",
+    "lodash": "^4.17.4",
     "payments": "nanobox-io/dashboard-ui-payments",
     "save": "^2.3.1",
     "shadow-icons": "Tolmark12/shadow-icons-js"
