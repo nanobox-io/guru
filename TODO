@@ -1,3 +1,3 @@
 ☐ Add url-loader to the vue init
 ☐ Change the illustrator to generate `.svgc` files? maybe...
-  ☐ Add vue-svg-loader
+  ✔ Add vue-svg-loader     done(√)

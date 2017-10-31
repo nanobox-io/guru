@@ -1,0 +1,190 @@
+<script type="text/babel">
+import {checkbox, flux} from 'lexi'
+
+export default {
+  name: 'account',
+  props:['model'],
+  components:{checkbox, flux},
+  data(){
+    return {
+      view : 'register',
+      haveReadTerms : false,
+      customUsername: false,
+      registerUsername : '',
+      registerEmail    : '',
+      registerPassword : '',
+    }
+  },
+  watch : {
+    registerEmail(val){
+      if(!this.customUsername){
+        val = val.split("@")[0].split('+')[0]
+        this.registerUsername =  val.replace(/[^0-9a-zA-Z\-]/g, '-')
+      }
+    },
+    customUsername(){
+      this.$el.focus()
+      setTimeout( ()=> {
+        this.$refs.username.focus()
+      }, 500 );
+    }
+  }
+}
+</script>
+
+<!--
+  **** H T M L ****
+-->
+
+<template lang="pug">
+  .account
+    flux()
+      .register(v-if="view == 'register'" v-bind:class="{full:customUsername}" key="register")
+        .switcher
+          .item(@click="view = 'login'") I already have an account
+        .main-title
+          .txt Create an account 
+          label.required
+            .txt required
+        flux
+          label.username.required(v-if="customUsername" key="a" )
+            .txt username
+            input.required(v-model="registerUsername" type="text" ref="username" spellcheck="false")
+          label.required(key="b")
+            .txt Email
+            input.required(v-model="registerEmail" type="text" spellcheck="false")
+          label.required(key="c")
+            .txt password
+            input.required(v-model="registerPassword" type="password" spellcheck="false")
+        br
+        .form-row
+          input.optional(type="text" placeholder="Name" spellcheck="false")
+          input.optional(type="text" placeholder="Phone" spellcheck="false")
+        .form-row
+          input.optional(type="text" placeholder="Company" spellcheck="false")
+          input.optional(type="text" placeholder="Role" spellcheck="false")
+        .terms
+          checkbox(v-model="haveReadTerms")
+            .label I have read and agree to the
+          a(href="https://nanobox.io/legal/" target="BLANK") terms of use
+
+        .proceed
+          .username(v-if="registerEmail.length > 0 && !customUsername" )
+            .label Username
+            .user {{ registerUsername }}
+            .change(@click="customUsername = true") change
+          .btn.lifecycle Submit
+
+      .login(v-if="view == 'login'" key="login")
+        .switcher
+          .item(@click="view = 'register'") Register
+          .item.divider(@click="view = 'reset'") Forgot Password
+        .main-title Nanobox : Login
+        label
+          .txt username
+          input.required(spellcheck="false")
+        label
+          .txt Email
+          input.required(v-model="registerEmail" type="text" spellcheck="false")
+        .terms
+          checkbox(v-model="haveReadTerms")
+            .label Remember me on the computer
+        .proceed
+          .btn.lifecycle Login
+      .forgot(v-if="view == 'reset'" key="reset")
+        .switcher
+          .item(@click="view = 'login'") Nevermind, I remember my password
+        .main-title Reset Password
+        label
+          .txt email Address
+          input.required(spellcheck="false")
+        .proceed
+          .btn.lifecycle Reset
+</template>
+
+<!--
+  ***** C S S *****
+-->
+
+<style lang="scss" scoped>
+  .account        {
+    .main-title   {position: relative;
+      label       {right:0; bottom:-10px;  position: absolute;
+        .txt:after{left:-17px; top:4px  }
+      }
+    }
+    .form-row     {display: flex; justify-content: space-between; margin-bottom:20px; }
+    label         {display: flex; flex-direction: column; @include caps(#93ABB9, 12px); margin-bottom: 20px;
+      &.required  {
+        .txt:after{content:"*"; font-size:22px; position: absolute; margin-left:3px; margin-top:-5px;  }
+      }
+    }
+    input         {transition: all 300ms;
+      &.required  {background: #EBEFF2; margin-top:10px; color:#3D5D70; font-weight: $bold;
+        &:focus   {background: #aadbff; color:#153C53; }
+      }
+      &.optional  {border-bottom: solid 4px #EBEFF2; width:48.5%; padding:0; height:30px; font-weight: $bold; font-size:14px; color:#3D5D70;
+        &:focus   {border-bottom-color:#70B6E9; }
+        &::-webkit-input-placeholder{color:#B4C6D1; }
+        &::-moz-placeholder{color:#B4C6D1; }
+        &:-ms-input-placeholder{color:#B4C6D1; }
+        &:-moz-placeholder {color:#B4C6D1; }
+      }
+    }
+
+    .switcher{position: absolute;bottom: -20px; left: -62px; color:#96DBFF; font-size:15px; font-style:italic; display: flex;
+      .item  {cursor: pointer;
+        &:hover{color:white; }
+        &.divider{
+          &:before{content:" | "; color:#48BBEC; margin: 0 14px; font-style:normal}
+        }
+      }
+    }
+
+    // ------------------------------------ Register
+    .login,
+    .register,
+    .forgot          {width:434px; height:580px; margin:0 auto; position: absolute; }
+
+    .register        {
+      .terms         {
+        a            {font-size: 16px; font-weight: $semibold; font-style: italic; margin-left:5px; color:#247EB5;
+          &:hover    {color:#005F99; text-decoration: underline; }
+        }
+      }
+      &.full         {
+          .terms     {margin-top:22px;}
+        label        {margin-bottom:12px;
+          &:last-of-type{margin-bottom: 15px; }
+        }
+        .form-row    {margin-bottom: 15px; }
+      }
+    }
+
+    // ------------------------------------ Login
+
+    .proceed         {display: flex; width:100%; align-items: center;
+      .btn           {font-size:14px; padding: 0 35px; }
+      .username      {display: flex; margin-right: auto; font-size:13px; font-style: italic; color:#93ABB9; align-items: baseline;
+        .label       {@include caps(#93ABB9, 12px); font-style: normal;
+          &:after    {content:" : "}
+        }
+        .user        {color:#33658C; font-size:19px; margin:0 10px 0 5px ;  }
+        .change      {color:#19AAF4; font-size:12px; cursor:pointer; }
+      }
+    }
+  }
+
+</style>
+
+<style lang="scss">
+.account        {
+  .terms{display: flex; align-items: center; margin-top:35px;
+    .checkbox {
+      .checker{box-shadow:0 1px 2px rgba(black, 0.3); margin-right:20px; }
+      .label:hover,
+      .label     {color:#93ABB8 !important;}
+    }
+  }
+}
+</style>

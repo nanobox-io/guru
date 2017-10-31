@@ -32,7 +32,7 @@ export default {
     .proceed
       transition(name="fade")
         input(type="text" v-model="teamName" v-if="selectedPlan != 'solo'" :placeholder="`Name Your ${selectedPlan}`")
-      .btn.lifecycle Next
+      .btn.lifecycle(@click="$emit('next')") Next
 </template>
 
 <!--

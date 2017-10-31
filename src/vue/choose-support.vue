@@ -28,7 +28,7 @@ export default {
           .header(v-if="plan.extends != null") {{ plan.extends }}
           .feature(v-for="feature in plan.features") {{ feature }}
     .proceed
-      .btn.lifecycle Next
+      .btn.lifecycle(@click="$emit('next')") Next
 </template>
 
 <!--

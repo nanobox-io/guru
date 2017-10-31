@@ -1,6 +1,35 @@
 <script type="text/babel">
+import {paypal, creditCard, miniNav} from 'payments'
 export default {
-  name: 'finalize'
+  name: 'finalize',
+  components: {paypal, creditCard, miniNav},
+  props:['model'],
+  data(){
+    return {
+      selectedItem : 'card',
+    }
+  },
+  methods:{
+    paypalComplete(err, nonce, deviceData){
+      console.log( 'paypal complete' )
+      console.log( 'err :' );        console.log( err )
+      console.log( 'nonce :' );      console.log( nonce )
+      console.log( 'deviceData :' ); console.log( deviceData )
+    },
+    ccInvalidField(){
+      console.log('Braintree says that something the user has entered is invalid')
+    },
+    ccReadyForSubmit() {
+      console.log( 'CC fields are formatted correctly and ready for submission' )
+    },
+    ccSubmitComplete() {
+      console.log( 'credit card add complete' )
+    },
+    ccError(err) {
+      console.log( `Error creating credit card : ${err}` )
+    },
+  }
+
 }
 </script>
 
@@ -31,6 +60,13 @@ export default {
       .total.cost
         .label Total
         | 200
+    .pay
+      .txt Choose a payment method
+      mini-nav(@change="selectedItem = arguments[0]")
+      paypal( :token="model.brainToken" @complete="paypalComplete" v-if="selectedItem == 'paypal'")
+      credit-card( :token="model.brainToken" @complete="ccSubmitComplete" @error="ccError" @ready="ccReadyForSubmit" @invalid="ccInvalidField" ref="card" v-if="selectedItem == 'card'")
+    .proceed.right
+      .btn.lifecycle Submit
 </template>
 
 <!--
@@ -39,6 +75,11 @@ export default {
 
 <style lang="scss" scoped>
   .finalize              {
+    .pay                 {margin-top:50px; width:580px;
+      .txt               {font-size:18px; font-weight:$bold; font-style:italic; color:#33658C; margin-bottom:15px;}
+      .mini-nav          {border-bottom:solid 1px #F1F1F1; padding-bottom:25px; margin-bottom:20px;}
+    }
+
     .summary             {display: flex;  align-items:flex-end; color:#163D5C; font-size:$semibold;
       .line-items        {flex-grow: 1;
         .line            {display: flex;padding:10px 0; border-bottom:solid 1px #E2E6E7; align-items: baseline;
