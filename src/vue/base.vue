@@ -5,28 +5,43 @@ import chooseSupport       from './choose-support'
 import finalize            from './finalize'
 import account             from './account'
 import {x, flux}           from 'lexi'
+import Sequence          from 'sequence'
 
 export default {
   name  : 'guru',
   props : ['model', 'callbacks'],
   components : {x, choosePlatform, chooseCollaboration, chooseSupport, finalize, account, flux},
   data() {
+    let sequence = this.createSequence()
     let obj =  {
-      currentPage : 'platform',
+      currentPage : sequence.currentItem,
+      sequence    : sequence
     }
     if( !this.model.user.isLoggedIn )
       obj.currentPage = 'account'
     return obj
   },
   methods    : {
-    nextSlide() {
-      if(this.currentPage == 'platform'){
-        this.currentPage = 'collaboration'
-      }else if(this.currentPage == 'collaboration'){
-        this.currentPage = 'support'
-      }else if(this.currentPage == 'support'){
-        this.currentPage = 'finalize'
+    createSequence() {
+      let ar;
+      // Selecting a single plan
+      if(this.model.postLoginAction.do == 'pick.plan'){
+        ar = [ this.model.postLoginAction.params[0], 'finalize' ]
+      // Selecting all plan categories
+      }else if(this.model.postLoginAction.do == 'pick.all.plans'){
+        ar = ['platform', 'collaboration', 'support', 'finalize']
+        let i = ar.indexOf(this.model.postLoginAction.params[0]);
+        ar.splice(i,1)
+        ar.unshift(this.model.postLoginAction.params[0])
       }
+      else{
+        return null
+      }
+      return new Sequence(ar)
+    },
+    nextSlide() {
+      this.sequence.next()
+      this.currentPage = this.sequence.currentItem
     }
   },
   mounted(){

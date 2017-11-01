@@ -8,20 +8,22 @@ export default {
   data(){
     return {
       selectedItem : 'card',
+      hasPaymentMethod : this.model.user.hasPaymentMethod
     }
   },
   methods:{
     paypalComplete(err, nonce, deviceData){
-      console.log( 'paypal complete' )
-      console.log( 'err :' );        console.log( err )
-      console.log( 'nonce :' );      console.log( nonce )
-      console.log( 'deviceData :' ); console.log( deviceData )
+      // console.log( 'paypal complete' )
+      // console.log( 'err :' );        console.log( err )
+      // console.log( 'nonce :' );      console.log( nonce )
+      // console.log( 'deviceData :' ); console.log( deviceData )
+      this.hasPaymentMethod = true
     },
     ccInvalidField(){
       console.log('Braintree says that something the user has entered is invalid')
     },
     ccReadyForSubmit() {
-      console.log( 'CC fields are formatted correctly and ready for submission' )
+      this.hasPaymentMethod = true
     },
     ccSubmitComplete() {
       console.log( 'credit card add complete' )
@@ -50,30 +52,30 @@ export default {
     .summary
       .line-items
         .line
-          .category Infrastructure
+          .category Platform
           .choice {{getPlan('platform').name}}
           .link(@click="$emit('change', 'platform')") Change
           .cost {{getPlan('platform').cost}}
         .line
-          .category Infrastructure
+          .category Collaboration
           .choice {{getPlan('collaboration').name}}
           .link(@click="$emit('change', 'collaboration')") Change
           .cost {{getPlan('collaboration').cost}}
         .line
-          .category Infrastructure
+          .category Support
           .choice {{getPlan('support').name}}
           .link(@click="$emit('change', 'support')") Change
           .cost {{getPlan('support').cost}}
       .total.cost
         .label Total
-        | 200
-    .pay
+        | {{getPlan('platform').cost + getPlan('collaboration').cost + getPlan('support').cost}}
+    .pay(v-if="!model.user.hasPaymentMethod")
       .txt Choose a payment method
       mini-nav(@change="selectedItem = arguments[0]")
       paypal( :token="model.brainToken" @complete="paypalComplete" v-if="selectedItem == 'paypal'")
       credit-card( :token="model.brainToken" @complete="ccSubmitComplete" @error="ccError" @ready="ccReadyForSubmit" @invalid="ccInvalidField" ref="card" v-if="selectedItem == 'card'")
     .proceed.right
-      .btn.lifecycle Submit
+      .btn.lifecycle(v-bind:class="{disabled:!hasPaymentMethod}") Submit
 </template>
 
 <!--

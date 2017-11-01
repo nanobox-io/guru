@@ -1,6 +1,6 @@
 {
   "name": "guru",
-  "version": "0.0.1",
+  "version": "0.0.3",
   "description": "UI component for changing plans, creating accounts, etc",
   "author": "Mark Parson <mark@nanobox.io>",
   "private": true,
@@ -14,6 +14,7 @@
     "lodash": "^4.17.4",
     "payments": "nanobox-io/dashboard-ui-payments",
     "save": "^2.3.1",
+    "sequence": "Tolmark12/sequence",
     "shadow-icons": "Tolmark12/shadow-icons-js"
   },
   "devDependencies": {

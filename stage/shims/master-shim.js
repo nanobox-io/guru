@@ -5,14 +5,14 @@ export default class MasterShim {
   constructor() {
     this.data = {
       // What the user is trying to do. Select a plan, etc
-      action : {
-        do     : 'pick.plan', // pick.all.plans, redirect
-        params : ['platform', 'free']
+      postLoginAction : {
+        do     : 'pick.all.plans', // pick.all.plans, redirect
+        params : ['collaboration']
       },
 
       // Info about the user
       user : {
-        isLoggedIn       : false,
+        isLoggedIn       : true,
         hasPaymentMethod : false,
         teamName         : '',
         currentPlans : {

@@ -13,9 +13,10 @@
   .btn        {height:55px; @include caps(white, 17px); background: #19AAF4; display: flex; align-items: center; padding:0 60px; cursor: pointer;
     &:hover   {background:#007DD7;}
   }
-  &.right     {background: red; width:initial; right:40px; }
+  &.right     {width:initial; right:40px; }
 }
 .cost         {font-size:25px; font-weight: $bold; letter-spacing:0.08em;
   &:before    {content:"$";}
   &:after     {content:"/mo"; font-size:14px; font-style: italic; font-weight: $semibold; letter-spacing: initial; }
 }
+.btn.disabled {opacity:0.4; pointer-events: none; }
