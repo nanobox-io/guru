@@ -75,6 +75,7 @@ export default {
       paypal( :token="model.brainToken" @complete="paypalComplete" v-if="selectedItem == 'paypal'")
       credit-card( :token="model.brainToken" @complete="ccSubmitComplete" @error="ccError" @ready="ccReadyForSubmit" @invalid="ccInvalidField" ref="card" v-if="selectedItem == 'card'")
     .proceed.right
+      .back(@click="$emit('prev')") Back
       .btn.lifecycle(v-bind:class="{disabled:!hasPaymentMethod}") Submit
 </template>
 
