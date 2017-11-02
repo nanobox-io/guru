@@ -8,17 +8,18 @@ export default {
   data(){
     return {
       view           : 'register',
-      haveReadTerms  : false,
       customUsername : false,
-
+      registerValid  : false,
+      loginValid     : false,
       // Form Fields
-      user      : '',
-      email     : '',
-      password  : '',
-      name      : '',
-      phone     : '',
-      company   : '',
-      role      : '',
+      user           : '',
+      email          : '',
+      password       : '',
+      name           : '',
+      phone          : '',
+      company        : '',
+      role           : '',
+      haveReadTerms  : false,
     }
   },
   methods:{
@@ -50,7 +51,19 @@ export default {
         email : this.email
       }
       this.$emit('forgot', vals, ()=>{})
-    }
+    },
+    // Validate Fields
+    validateFields(){
+      this.loginValid    = this.validate( ['user', 'password'] )
+      this.registerValid = this.validate( ['user', 'email', 'password', 'haveReadTerms'] )
+    },
+    validate(ar) {
+      for ( let item of ar ){
+        if (!this[item])
+          return false
+      }
+      return true
+    },
   },
   watch : {
     email(val){
@@ -85,15 +98,15 @@ export default {
           label.required
             .txt required
         flux
-          label.username.required(v-if="customUsername" key="a" )
+          label.username.required(v-if="customUsername" key="a" @keyup="validateFields")
             .txt username
-            input.required(v-model="user" type="text" ref="username" spellcheck="false")
+            input.required(v-model="user" type="text" ref="username" spellcheck="false" @keyup="validateFields")
           label.required(key="b")
             .txt Email
-            input.required(v-model="email" type="text" spellcheck="false")
+            input.required(v-model="email" type="text" spellcheck="false" @keyup="validateFields")
           label.required(key="c")
             .txt password
-            input.required(v-model="password" type="password" spellcheck="false")
+            input.required(v-model="password" type="password" spellcheck="false" @keyup="validateFields")
         br
         .form-row
           input.optional(type="text" v-model="name"    placeholder="Name"    spellcheck="false")
@@ -102,7 +115,7 @@ export default {
           input.optional(type="text" v-model="company" placeholder="Company" spellcheck="false")
           input.optional(type="text" v-model="role"    placeholder="Role"    spellcheck="false")
         .terms
-          checkbox(v-model="haveReadTerms")
+          checkbox(v-model="haveReadTerms" @input="validateFields")
             .label I have read and agree to the
           a(href="https://nanobox.io/legal/" target="BLANK") terms of use
 
@@ -111,7 +124,7 @@ export default {
             .label Username
             .user {{ user }}
             .change(@click="customUsername = true") change
-          .btn.lifecycle(@click="register") Submit
+          .btn.lifecycle(@click="register" v-bind:class="{disabled:!registerValid}") Submit
 
       //- Login
       .login(v-if="view == 'login'" key="login")
@@ -121,15 +134,12 @@ export default {
         .main-title Nanobox : Login
         label
           .txt username / email
-          input.required(spellcheck="false" v-model="user")
+          input.required(spellcheck="false" v-model="user" @keyup="validateFields")
         label
           .txt password
-          input.required(v-model="password" type="password" spellcheck="false")
-        .terms
-          checkbox(v-model="haveReadTerms")
-            .label Remember me on the computer
+          input.required(v-model="password" type="password" spellcheck="false" @keyup="validateFields")
         .proceed(@click="login")
-          .btn.lifecycle Login
+          .btn.lifecycle(v-bind:class="{disabled:!loginValid}") Login
 
       //- Forgot Password
       .forgot(v-if="view == 'reset'" key="reset")

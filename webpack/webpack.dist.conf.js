@@ -14,7 +14,8 @@ module.exports        = merge(baseWebpackConfig, {
   },
   externals:{
     // Add any libraries you want odin to manage here:
-    // lodash : 'lodash',
+    lodash : 'lodash',
+    vue    : 'vue'
   },
   devtool: config.build.productionSourceMap ? '#source-map' : false,
   output: {

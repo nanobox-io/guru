@@ -7,7 +7,7 @@ export default class MasterShim {
       // What the user is trying to do. Select a plan, etc
       postLoginAction : {
         do     : 'pick.all.plans', // pick.all.plans, redirect
-        params : ['collaboration']
+        params : ['platform']
       },
 
       // Info about the user

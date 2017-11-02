@@ -26,6 +26,7 @@ export default {
     .proceed
       transition(name="fade")
         input(type="text" v-model="model.user.teamName" v-if="model.user.currentPlans.collaboration != 'solo'" :placeholder="`Name Your ${model.user.currentPlans.collaboration}`")
+      .back(@click="$emit('prev')") Back
       .btn.lifecycle(@click="$emit('next')") Next
 </template>
 

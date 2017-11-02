@@ -23,6 +23,7 @@ export default {
           .header(v-if="plan.extends != null") {{ plan.extends }}
           .feature(v-for="feature in plan.features") {{ feature }}
     .proceed
+      .back(@click="$emit('prev')") Back
       .btn.lifecycle(@click="$emit('next')") Next
 </template>
 

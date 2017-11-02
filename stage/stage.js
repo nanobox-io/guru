@@ -25,6 +25,9 @@ let callbacks = {
   resetPassword(data, cb){
     console.log( `Resetting password for: ${data.email}` )
     setTimeout( ()=> { cb({}) }, Math.random() * 1200 );
+  },
+  close(){
+    window.location.reload(false)
   }
 }
 
