@@ -2,8 +2,9 @@ import Sequence from 'sequence'
 
 export default class Brain {
 
-  constructor(model) {
+  constructor(model, base) {
     this.model = model
+    this.base  = base
     this.init()
   }
 
@@ -15,15 +16,23 @@ export default class Brain {
     // Selecting all plan categories
     }else if(this.model.postLoginAction.do == 'pick.all.plans'){
       ar = ['platform', 'collaboration', 'support', 'finalize']
+      // Move the category of choice to the front of the list
       let i = ar.indexOf(this.model.postLoginAction.params[0]);
       ar.splice(i,1)
       ar.unshift(this.model.postLoginAction.params[0])
     }
     else{
-      return null
+      ar = []
     }
 
     this.sequence = new Sequence(ar)
+  }
+
+  handleLoggedIn() {
+    if(this.model.postLoginAction.do == 'pick.plan' || this.model.postLoginAction.do == 'pick.all.plans')
+      this.base.currentPage = this.sequence.currentItem
+    else if(this.model.postLoginAction.do == 'redirect')
+      window.location = this.model.postLoginAction.params[0];
   }
 
 }

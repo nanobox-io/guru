@@ -7,24 +7,28 @@ export default {
   components:{checkbox, flux},
   data(){
     return {
-      view           : 'register',
-      customUsername : false,
-      registerValid  : false,
-      loginValid     : false,
+      view               : 'register',
+      customUsername     : false,
+      registerValid      : false,
+      loginValid         : false,
+      submittingLogin    : false,
+      submittingRegister : false,
+      submittingForgot   : false,
       // Form Fields
-      user           : '',
-      email          : '',
-      password       : '',
-      name           : '',
-      phone          : '',
-      company        : '',
-      role           : '',
-      haveReadTerms  : false,
+      user               : '',
+      email              : '',
+      password           : '',
+      name               : '',
+      phone              : '',
+      company            : '',
+      role               : '',
+      haveReadTerms      : false,
     }
   },
   methods:{
     // REGISTER
     register(){
+      this.$emit('error', '')
       let vals = {
         user          : this.user,
         email         : this.email,
@@ -35,22 +39,36 @@ export default {
         role          : this.role,
         haveReadTerms : this.haveReadTerms
       }
-      this.$emit('register', vals, ()=>{})
+      this.submittingRegister = true
+      this.$emit('register', vals, (data)=>{
+        this.$emit('error', data.error)
+        this.submittingRegister = false
+      })
     },
     // LOGIN
     login(){
+      this.$emit('error', '')
       let vals = {
         user     : this.user,
         password : this.password
       }
-      this.$emit('login', vals, ()=>{})
+      this.submittingLogin = true
+      this.$emit('login', vals, (data)=>{
+        this.$emit('error', data.error)
+        this.submittingLogin = false
+      })
     },
     // FORGOT PASSWORD
     forgotPassword(){
+      this.$emit('error', '')
       let vals = {
         email : this.email
       }
-      this.$emit('forgot', vals, ()=>{})
+      this.submittingForgot = true
+      this.$emit('forgot', vals, (data)=>{
+        this.$emit('error', data.error)
+        this.submittingForgot = false
+      })
     },
     // Validate Fields
     validateFields(){
@@ -124,7 +142,7 @@ export default {
             .label Username
             .user {{ user }}
             .change(@click="customUsername = true") change
-          .btn.lifecycle(@click="register" v-bind:class="{disabled:!registerValid}") Submit
+          .btn.lifecycle(@click="register" v-bind:class="{disabled:!registerValid, ing:submittingRegister}") Submit
 
       //- Login
       .login(v-if="view == 'login'" key="login")
@@ -139,7 +157,7 @@ export default {
           .txt password
           input.required(v-model="password" type="password" spellcheck="false" @keyup="validateFields")
         .proceed(@click="login")
-          .btn.lifecycle(v-bind:class="{disabled:!loginValid}") Login
+          .btn.lifecycle(v-bind:class="{disabled:!loginValid, ing:submittingLogin}") Login
 
       //- Forgot Password
       .forgot(v-if="view == 'reset'" key="reset")
@@ -150,7 +168,7 @@ export default {
           .txt email Address
           input.required(spellcheck="false" v-model="email")
         .proceed
-          .btn.lifecycle(@click="forgotPassword") Reset
+          .btn.lifecycle(@click="forgotPassword" v-bind:class="{ing:submittingForgot}") Reset
 </template>
 
 <!--

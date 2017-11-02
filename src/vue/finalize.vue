@@ -7,17 +7,19 @@ export default {
   props:['model'],
   data(){
     return {
-      selectedItem : 'card',
-      hasPaymentMethod : this.model.user.hasPaymentMethod
+      submitting       : false,
+      selectedItem     : 'card',
+      hasPaymentMethod : this.model.user.hasPaymentMethod,
+      paymentInfo      : {},
     }
   },
   methods:{
     paypalComplete(err, nonce, deviceData){
-      // console.log( 'paypal complete' )
-      // console.log( 'err :' );        console.log( err )
-      // console.log( 'nonce :' );      console.log( nonce )
-      // console.log( 'deviceData :' ); console.log( deviceData )
       this.hasPaymentMethod = true
+      this.paymentInfo = {
+        kind       : 'paypal',
+        nonce      : nonce,
+      }
     },
     ccInvalidField(){
       console.log('Braintree says that something the user has entered is invalid')
@@ -25,11 +27,30 @@ export default {
     ccReadyForSubmit() {
       this.hasPaymentMethod = true
     },
-    ccSubmitComplete() {
-      console.log( 'credit card add complete' )
+    ccSubmitComplete(nonce) {
+      this.paymentInfo = {
+        kind       : 'card',
+        nonce      : nonce,
+      }
+      this.submit()
     },
     ccError(err) {
-      console.log( `Error creating credit card : ${err}` )
+      this.submitting = false
+      this.$emit('error',err)
+    },
+
+    submitClick() {
+      this.submitting = true
+      this.$emit('error', '')
+      if(this.selectedItem == 'card')
+        this.$refs.card.submit()
+      else
+        this.submit()
+    },
+    submit() {
+      this.$emit('submit', this.paymentInfo, ()=>{
+        this.submitting = false
+      })
     },
 
     // Helpers
@@ -76,7 +97,7 @@ export default {
       credit-card( :token="model.brainToken" @complete="ccSubmitComplete" @error="ccError" @ready="ccReadyForSubmit" @invalid="ccInvalidField" ref="card" v-if="selectedItem == 'card'")
     .proceed.right
       .back(@click="$emit('prev')") Back
-      .btn.lifecycle(v-bind:class="{disabled:!hasPaymentMethod}") Submit
+      .btn.lifecycle(v-bind:class="{disabled:!hasPaymentMethod, ing:submitting}" @click="submitClick") Submit
 </template>
 
 <!--

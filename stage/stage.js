@@ -6,26 +6,69 @@ import Vue from 'vue'
 Vue.config.productionTip = false;
 
 window.shim = new MasterShim()
+// window.shim.login()
+// window.shim.redirectAfterLogin()
+
 let callbacks = {
+
+  // Login
   login(data, cb){
     console.log( `Logging in. username:[${data.user}], password:[${data.password}]` )
     setTimeout( ()=> {
       cb({});
       console.log( shim.data.user.isLoggedIn )
-      shim.data.user.isLoggedIn = true
+      shim.login()
     }, Math.random() * 1200 );
   },
+
+  // Register a new user
   register(data, cb){
     console.log( `Registering:` )
     for ( let key in data ) {
       console.log( `  ${key} : ${data[key]}` )
     }
-    setTimeout( ()=> { cb({}) }, Math.random() * 1200 );
+    /*
+      user          - required
+      email         - required
+      password      - required
+      haveReadTerms - required
+      name
+      phone
+      company
+      role
+    */
+    setTimeout( ()=> {
+      cb({})
+      shim.login()
+    }, Math.random() * 1200 );
   },
+
+  // Reset the password because they forgot
   resetPassword(data, cb){
     console.log( `Resetting password for: ${data.email}` )
     setTimeout( ()=> { cb({}) }, Math.random() * 1200 );
   },
+
+  // Set the plans the user chose & possibly the payment info
+  setPlans(plans, paymentInfo, cb){
+    let planStr = '';
+    planStr += `Changing plans to:\n`
+    planStr += `  platform      : ${plans.platform}\n`
+    planStr += `  collaboration : ${plans.collaboration}\n`
+    planStr += `  support       : ${plans.support}\n`
+
+    let paymentStr = '';
+    if(paymentInfo != null){
+      paymentStr += `The payment info the user added:\n`
+      paymentStr += `  kind       : ${paymentInfo.kind}\n`
+      paymentStr += `  nonce      : ${paymentInfo.nonce}\n`
+    }
+    console.log(planStr)
+    console.log(paymentStr)
+    setTimeout( ()=> { cb({error:""}) }, Math.random() * 1200 );
+  },
+
+  // Called when user clicks the X button
   close(){
     window.location.reload(false)
   }

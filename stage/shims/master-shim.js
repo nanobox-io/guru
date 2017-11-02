@@ -12,7 +12,7 @@ export default class MasterShim {
 
       // Info about the user
       user : {
-        isLoggedIn       : true,
+        isLoggedIn       : false,
         hasPaymentMethod : false,
         teamName         : '',
         currentPlans : {
@@ -30,6 +30,16 @@ export default class MasterShim {
     }
   }
 
+  redirectAfterLogin(url="http://google.com") {
+    this.data.postLoginAction = {
+      do     : "redirect",
+      params : [url]
+    }
+  }
+
+  login() {
+    this.data.user.isLoggedIn = true; 
+  }
 
 }
 
