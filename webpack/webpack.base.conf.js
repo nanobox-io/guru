@@ -74,8 +74,8 @@ module.exports = {
           // optional [svgo](https://github.com/svg/svgo) options
           svgo: {
             plugins: [
-              {removeDoctype: true},
-              {removeComments: true}
+              {removeDoctype: false},
+              {removeComments: false}
             ]
           }
         }
