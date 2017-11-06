@@ -63,7 +63,7 @@ export default {
   .guru(v-bind:class="{account:currentPage == 'account'}")
     x.close(@click="callbacks.close")
     errors(:errors="error")
-    account(v-if="currentPage == 'account'" model="model" @register="callbacks.register" @login="callbacks.login" @forgot="callbacks.resetPassword" key="account" @error="onError")
+    account(v-if="currentPage == 'account'" :model="model" @register="callbacks.register" @login="callbacks.login" @forgot="callbacks.resetPassword" key="account" @error="onError")
     choose-platform(:model="model" v-if="currentPage == 'platform'" @next="nextSlide" @prev="prevSlide" key="platform" v-bind:class="{first:firstItem == 'platform'}" )
     choose-collaboration(:model="model" v-if="currentPage == 'collaboration'" @next="nextSlide" @prev="prevSlide" key="collaboration" v-bind:class="{first:firstItem == 'collaboration'}" )
     choose-support(:model="model" v-if="currentPage == 'support'" @next="nextSlide" @prev="prevSlide" key="support" v-bind:class="{first:firstItem == 'support'}" )

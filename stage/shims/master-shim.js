@@ -4,6 +4,8 @@ export default class MasterShim {
 
   constructor() {
     this.data = {
+      accountDefaultScreen : 'register', // `register`, `login`, `reset`  -  defaults to : register
+
       // What the user is trying to do. Select a plan, etc
       postLoginAction : {
         do     : 'pick.all.plans', // pick.plan pick.all.plans, redirect
@@ -12,7 +14,7 @@ export default class MasterShim {
 
       // Info about the user
       user : {
-        isLoggedIn       : true,
+        isLoggedIn       : false,
         hasPaymentMethod : false,
         teamName         : '',
         currentPlans : {

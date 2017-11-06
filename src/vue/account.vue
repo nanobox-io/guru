@@ -6,7 +6,7 @@ export default {
   components:{checkbox, flux},
   data(){
     return {
-      view               : 'register',
+      view               : this.model.accountDefaultScreen == null ? 'register' : this.model.accountDefaultScreen,
       customUsername     : false,
       registerValid      : false,
       loginValid         : false,
