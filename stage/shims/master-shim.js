@@ -6,15 +6,15 @@ export default class MasterShim {
     this.data = {
       accountDefaultScreen : 'register', // `register`, `login`, `reset`  -  defaults to : register
 
-      // What the user is trying to do. Select a plan, etc
-      postLoginAction : {
-        do     : 'pick.all.plans', // pick.plan pick.all.plans, redirect
-        params : ['platform']
+      // Info about what the user is trying to do as far as plan selection
+      planSelection : {
+        category      : 'platform', //  'platform', 'collaboration', 'support' ::  The category to choose, or the category to start with if `pickAllPlans` is true.
+        pickAllPlans  : true,       // Set as true to force the user to choose a plan for each category, false to just pick the above category
       },
 
       // Info about the user
       user : {
-        isLoggedIn       : false,
+        isLoggedIn       : true,
         hasPaymentMethod : false,
         teamName         : '',
         currentPlans : {
