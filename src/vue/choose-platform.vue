@@ -10,7 +10,7 @@ import scale    from '../assets/svg/compiled/scale.svg'
 // import icon     from './icon'
 export default {
   name: 'choose-platform',
-  props:['model'],
+  props:['model', 'plans'],
   components:{card, xvg, automate, deploy, monitor, protect, scale },
 }
 </script>
@@ -24,7 +24,7 @@ export default {
     .main-title Pick your Platform
     .plans
       .plan(v-for="plan in model.plans.platform" :key="plan.id" v-bind:class="plan.state")
-        card(v-model="model.user.currentPlans.platform" :val="plan.id" )
+        card(v-model="plans.platform" :val="plan.id" )
           .title {{ plan.name }}
           .icon-wrapper
             xvg

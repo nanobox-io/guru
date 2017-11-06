@@ -9,14 +9,15 @@ export default class MasterShim {
       // Info about what the user is trying to do as far as plan selection
       planSelection : {
         category      : 'platform', //  'platform', 'collaboration', 'support' ::  The category to choose, or the category to start with if `pickAllPlans` is true.
+        choice        : 'monitor',  // The user's choice in this category ^  (can be undefined)
         pickAllPlans  : true,       // Set as true to force the user to choose a plan for each category, false to just pick the above category
       },
 
-      // Info about the user
+      // Info about the user's current state and current'y selected plans
       user : {
         isLoggedIn       : true,
-        hasPaymentMethod : false,
-        teamName         : '',
+        hasPaymentMethod : true,
+        teamName         : "Current Team Name", // Can be undefined
         currentPlans : {
           platform      : 'scale',
           collaboration : 'team',

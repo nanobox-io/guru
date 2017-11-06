@@ -50,12 +50,13 @@ let callbacks = {
   },
 
   // Set the plans the user chose & possibly the payment info
-  setPlans(plans, paymentInfo, cb){
+  setPlans(plans, teamName, paymentInfo, cb){
     let planStr = '';
     planStr += `Changing plans to:\n`
     planStr += `  platform      : ${plans.platform}\n`
     planStr += `  collaboration : ${plans.collaboration}\n`
-    planStr += `  support       : ${plans.support}\n`
+    planStr += `  support       : ${plans.support}\n\n`
+    planStr += `Team Name is : ${teamName} (may be null)`
 
     let paymentStr = '';
     if(paymentInfo != null){

@@ -4,7 +4,7 @@ import _ from 'lodash'
 export default {
   name: 'finalize',
   components: {paypal, creditCard, miniNav},
-  props:['model'],
+  props:['model', 'plans'],
   data(){
     return {
       submitting       : false,
@@ -42,7 +42,7 @@ export default {
     submitClick() {
       this.submitting = true
       this.$emit('error', '')
-      if(this.selectedItem == 'card')
+      if(this.selectedItem == 'card' && !this.model.user.hasPaymentMethod)
         this.$refs.card.submit()
       else
         this.submit()
@@ -56,7 +56,7 @@ export default {
     // Helpers
 
     getPlan(category) {
-      return _.find(this.model.plans[category], {id:this.model.user.currentPlans[category] })
+      return _.find(this.model.plans[category], {id:this.plans[category] })
     }
   }
 
