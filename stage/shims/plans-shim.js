@@ -35,7 +35,7 @@ export default class Shim {
           name:'monitor',
           cost:50,
           extends:'scale',
-          beta:true,
+          state:'beta',
           features:[
             'Realtime monitoring',
             'Create custom alerts based on container and server usage'
@@ -46,7 +46,7 @@ export default class Shim {
           name:'automate',
           cost:75,
           extends:'monitor',
-          beta:true,
+          state:'alpha',
           features:[
             'Configure your app to automatically scale up / down',
             'Add additional automation based on health or other app events'
@@ -57,7 +57,7 @@ export default class Shim {
           name:'protect',
           cost:100,
           extends:'automate',
-          beta:true,
+          state:'alpha',
           features:[
             'Data Redundancy',
             'Automatic Data Backups'

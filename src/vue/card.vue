@@ -52,7 +52,7 @@ export default {
         .checker    {opacity:1;
         }
       }
-      .xvg         {
+      .xvg          {
         svg *       {stroke:#0C2F4B; }
       }
     }

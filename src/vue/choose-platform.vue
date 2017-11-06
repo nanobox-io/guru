@@ -23,7 +23,7 @@ export default {
   .choose-platform
     .main-title Pick your Platform
     .plans
-      .plan(v-for="plan in model.plans.platform" :key="plan.id" v-bind:class="{hide:plan.beta}")
+      .plan(v-for="plan in model.plans.platform" :key="plan.id" v-bind:class="plan.state")
         card(v-model="model.user.currentPlans.platform" :val="plan.id" )
           .title {{ plan.name }}
           .icon-wrapper
