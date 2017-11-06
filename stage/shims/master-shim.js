@@ -6,13 +6,13 @@ export default class MasterShim {
     this.data = {
       // What the user is trying to do. Select a plan, etc
       postLoginAction : {
-        do     : 'pick.all.plans', // pick.all.plans, redirect
+        do     : 'pick.all.plans', // pick.plan pick.all.plans, redirect
         params : ['platform']
       },
 
       // Info about the user
       user : {
-        isLoggedIn       : false,
+        isLoggedIn       : true,
         hasPaymentMethod : false,
         teamName         : '',
         currentPlans : {
@@ -38,7 +38,7 @@ export default class MasterShim {
   }
 
   login() {
-    this.data.user.isLoggedIn = true; 
+    this.data.user.isLoggedIn = true;
   }
 
 }

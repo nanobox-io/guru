@@ -1,6 +1,5 @@
 <script type="text/babel">
 import {checkbox, flux} from 'lexi'
-
 export default {
   name: 'account',
   props:['model'],
@@ -255,5 +254,8 @@ export default {
       .label     {color:#93ABB8 !important;}
     }
   }
+}
+.icon           {
+  svg * {stroke:red}
 }
 </style>
