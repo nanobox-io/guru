@@ -31,10 +31,8 @@ export default class Brain {
   }
 
   handleLoggedIn() {
-    if(this.model.postLoginAction.do == 'pick.plan' || this.model.postLoginAction.do == 'pick.all.plans')
+    if(this.model.planSelection != null)
       this.base.currentPage = this.sequence.currentItem
-    else if(this.model.postLoginAction.do == 'redirect')
-      window.location = this.model.postLoginAction.params[0];
   }
 
 }
