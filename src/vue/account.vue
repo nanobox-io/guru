@@ -1,11 +1,9 @@
 <script type="text/babel">
 import {checkbox, flux} from 'lexi'
-import scale from '../assets/svg/compiled/scale.svg'
-
 export default {
   name: 'account',
   props:['model'],
-  components:{checkbox, flux, scale},
+  components:{checkbox, flux},
   data(){
     return {
       view               : 'register',
@@ -112,7 +110,6 @@ export default {
       .register(v-if="view == 'register'" v-bind:class="{full:customUsername}" key="register")
         .switcher
           .item(@click="view = 'login'") I already have an account
-        scale
         .main-title
           .txt Create an account 
           label.required
@@ -257,5 +254,8 @@ export default {
       .label     {color:#93ABB8 !important;}
     }
   }
+}
+.icon           {
+  svg * {stroke:red}
 }
 </style>
