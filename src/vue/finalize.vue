@@ -4,13 +4,14 @@ import _ from 'lodash'
 export default {
   name: 'finalize',
   components: {paypal, creditCard, miniNav},
-  props:['model', 'plans'],
+  props:['model', 'plans', 'getToken'],
   data(){
     return {
       submitting       : false,
       selectedItem     : 'card',
       hasPaymentMethod : this.model.user.hasPaymentMethod,
       paymentInfo      : {},
+      token            : null
     }
   },
   methods:{
@@ -58,8 +59,19 @@ export default {
     getPlan(category) {
       return _.find(this.model.plans[category], {id:this.plans[category] })
     }
+  },
+  mounted(){
+    if(this.hasPaymentMethod)
+      return
+    console.log( 'getting token' )
+    this.getToken((data)=>{
+      if(data.error != null)
+        this.$emit('error', data.error)
+      console.log( 'token:' )
+      console.log( data.token )
+      this.token = data.token
+    })
   }
-
 }
 </script>
 
@@ -90,11 +102,12 @@ export default {
       .total.cost
         .label Total
         | {{getPlan('platform').cost + getPlan('collaboration').cost + getPlan('support').cost}}
-    .pay(v-if="!model.user.hasPaymentMethod")
+    .pay(v-if="!model.user.hasPaymentMethod && token != null")
       .txt Choose a payment method
       mini-nav(@change="selectedItem = arguments[0]")
-      paypal( :token="model.brainToken" @complete="paypalComplete" v-if="selectedItem == 'paypal'")
-      credit-card( :token="model.brainToken" @complete="ccSubmitComplete" @error="ccError" @ready="ccReadyForSubmit" @invalid="ccInvalidField" ref="card" v-if="selectedItem == 'card'")
+      paypal( :token="token" @complete="paypalComplete" v-if="selectedItem == 'paypal'")
+      credit-card( :token="token" @complete="ccSubmitComplete" @error="ccError" @ready="ccReadyForSubmit" @invalid="ccInvalidField" ref="card" v-if="selectedItem == 'card'")
+    .getting-token(v-if="!model.user.hasPaymentMethod && token == null") Preparing Request...
     .proceed.right
       .back(@click="$emit('prev')") Back
       .btn.lifecycle(v-bind:class="{disabled:!hasPaymentMethod, ing:submitting}" @click="submitClick") Submit
@@ -127,5 +140,7 @@ export default {
         .label           {content:"Total"; position: absolute; top:-20px; font-size:14px; color:#C3CCD1; letter-spacing: 0; left:0;  }
       }
     }
+
+    .getting-token       {display: flex; align-items: center; justify-content: flex-end; width:360px; height:520px; font-size:15px; font-style: italic; color:#758C94}
   }
 </style>

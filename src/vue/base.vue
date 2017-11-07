@@ -97,7 +97,7 @@ export default {
     choose-platform(:model="model" :plans="plans" v-if="currentPage == 'platform'" @next="nextSlide" @prev="prevSlide" key="platform" v-bind:class="{first:firstItem == 'platform'}" )
     choose-collaboration(:model="model" :plans="plans" v-if="currentPage == 'collaboration'" @next="nextSlide" @prev="prevSlide" key="collaboration" v-bind:class="{first:firstItem == 'collaboration'}" )
     choose-support(:model="model" :plans="plans" v-if="currentPage == 'support'" @next="nextSlide" @prev="prevSlide" key="support" v-bind:class="{first:firstItem == 'support'}" )
-    finalize(:model="model" :plans="plans" v-if="currentPage == 'finalize'" @change="currentPage = arguments[0]" @prev="prevSlide" key="finalize" v-bind:class="{first:firstItem == 'finalize'}" @submit="submitPlans" @error="onError")
+    finalize(:model="model" :getToken="callbacks.getToken" :plans="plans" v-if="currentPage == 'finalize'" @change="currentPage = arguments[0]" @prev="prevSlide" key="finalize" v-bind:class="{first:firstItem == 'finalize'}" @submit="submitPlans" @error="onError")
 </template>
 
 <!--

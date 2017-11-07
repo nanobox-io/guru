@@ -69,6 +69,13 @@ let callbacks = {
     setTimeout( ()=> { cb({error:""}) }, Math.random() * 1200 );
   },
 
+  // Retrieve a token
+  getToken(cb) {
+    setTimeout( ()=> {
+      cb( { token: shim.getToken() } )
+    }, Math.random() * 2200 );
+  },
+
   // Called when user clicks the X button
   close(){
     window.location.reload(false)
