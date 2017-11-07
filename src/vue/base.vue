@@ -36,7 +36,9 @@ export default {
       this.currentPage = this.brain.sequence.currentItem
     },
     submitPlans(paymentInfo, cb) {
-      this.callbacks.setPlans(this.plans, this.plans.teamName, paymentInfo, (data)=>{
+      let planCopy = Object.assign({},this.plans)
+      delete planCopy.teamName
+      this.callbacks.setPlans(planCopy, this.plans.teamName, paymentInfo, (data)=>{
         cb()
         this.error = data.error
       })

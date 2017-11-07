@@ -16,7 +16,7 @@ export default class MasterShim {
       // Info about the user's current state and current'y selected plans
       user : {
         isLoggedIn       : true,
-        hasPaymentMethod : false,
+        hasPaymentMethod : true,
         teamName         : "Current Team Name", // Can be undefined
         currentPlans : {
           platform      : 'scale',
