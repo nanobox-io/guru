@@ -28,8 +28,7 @@ export default {
           .title {{ plan.name }}
           .icon-wrapper
             xvg
-              deploy
-              //- component(:is="plan.name")
+              component(:is="plan.id")
           .cost {{ plan.cost }}
         .features
           .header(v-if="plan.extends != null") {{ plan.extends }}
