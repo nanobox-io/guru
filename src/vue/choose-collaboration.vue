@@ -40,7 +40,7 @@ export default {
       .plan             {margin-right:37px;
         .card           {
           .icon         {height:90px; margin-top:5px; }
-          .img          {background: url('~/assets/images/sprite.png'); width: 100px; height:30px;
+          .img          {background: url(../assets/images/sprite.png); width: 100px; height:30px;
             &.solo      {width:31px; height:82px; background-position-x:-1px; }
             &.team      {width:61px; height:86px; background-position:-35px -1px;}
             &.business  {width:84px; height:82px; background-position:-99px -2px;}
