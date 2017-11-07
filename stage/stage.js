@@ -76,7 +76,7 @@ let callbacks = {
     }, Math.random() * 2200 );
   },
 
-
+  // Called to validate the team / business name
   validateTeamName(teamName, cb) {
     console.log( `Validating team name : ${teamName}...` )
     setTimeout( ()=> {
