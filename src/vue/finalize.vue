@@ -63,12 +63,9 @@ export default {
   mounted(){
     if(this.hasPaymentMethod)
       return
-    console.log( 'getting token' )
     this.getToken((data)=>{
       if(data.error != null)
         this.$emit('error', data.error)
-      console.log( 'token:' )
-      console.log( data.token )
       this.token = data.token
     })
   }

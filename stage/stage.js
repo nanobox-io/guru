@@ -76,6 +76,14 @@ let callbacks = {
     }, Math.random() * 2200 );
   },
 
+
+  validateTeamName(teamName, cb) {
+    console.log( `Validating team name : ${teamName}...` )
+    setTimeout( ()=> {
+      cb( {} )
+    }, Math.random() * 2200 );
+  },
+
   // Called when user clicks the X button
   close(){
     window.location.reload(false)

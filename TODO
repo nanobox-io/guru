@@ -4,3 +4,4 @@
 ☐ account.vue
   ☐ Validate the required fields before send
   ☐ handle any errors after send
+☐ Move the token callback stuff to the payments component

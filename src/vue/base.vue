@@ -95,7 +95,7 @@ export default {
     errors(:errors="error")
     account(v-if="currentPage == 'account'" :model="model" @register="callbacks.register" @login="callbacks.login" @forgot="callbacks.resetPassword" key="account" @error="onError")
     choose-platform(:model="model" :plans="plans" v-if="currentPage == 'platform'" @next="nextSlide" @prev="prevSlide" key="platform" v-bind:class="{first:firstItem == 'platform'}" )
-    choose-collaboration(:model="model" :plans="plans" v-if="currentPage == 'collaboration'" @next="nextSlide" @prev="prevSlide" key="collaboration" v-bind:class="{first:firstItem == 'collaboration'}" )
+    choose-collaboration(:model="model" :plans="plans" :validateTeamName="callbacks.validateTeamName" v-if="currentPage == 'collaboration'" @next="nextSlide" @prev="prevSlide" key="collaboration" v-bind:class="{first:firstItem == 'collaboration'}" @error="onError")
     choose-support(:model="model" :plans="plans" v-if="currentPage == 'support'" @next="nextSlide" @prev="prevSlide" key="support" v-bind:class="{first:firstItem == 'support'}" )
     finalize(:model="model" :getToken="callbacks.getToken" :plans="plans" v-if="currentPage == 'finalize'" @change="currentPage = arguments[0]" @prev="prevSlide" key="finalize" v-bind:class="{first:firstItem == 'finalize'}" @submit="submitPlans" @error="onError")
 </template>

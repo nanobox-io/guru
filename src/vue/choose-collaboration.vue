@@ -2,8 +2,33 @@
 import card from './card'
 export default {
   name: 'choose-collaboration',
-  props:['model', 'plans', 'team-name'],
+  props:['model', 'plans', 'team-name', 'validateTeamName'],
   components:{card},
+  data(){
+    return{
+      validating:false
+    }
+  },
+  methods:{
+    validateTeam() {
+      this.$emit('error', '')
+      if( this.plans.collaboration != 'solo' ){
+        if(this.model.user.teamName != this.plans.teamName){
+          this.validating = true
+          this.validateTeamName(this.plans.teamName, (data)=>{
+            this.validating = false
+            if(data.error){
+              this.$emit('error', data.error)
+            }else{
+              this.$emit('next')
+            }
+          })
+          return
+        }
+      }
+      this.$emit('next')
+    }
+  }
 }
 </script>
 
@@ -27,7 +52,7 @@ export default {
       transition(name="fade")
         input(type="text" v-model="plans.teamName" v-if="plans.collaboration != 'solo'" :placeholder="`Name Your ${model.user.currentPlans.collaboration}`")
       .back(@click="$emit('prev')") Back
-      .btn.lifecycle(@click="$emit('next')") Next
+      .btn.lifecycle(@click="validateTeam" v-bind:class="{ing:validating}") Next
 </template>
 
 <!--
