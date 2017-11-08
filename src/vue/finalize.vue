@@ -8,7 +8,7 @@ export default {
   data(){
     return {
       submitting       : false,
-      selectedItem     : 'card',
+      selectedItem     : 'paypal',
       hasPaymentMethod : this.model.user.hasPaymentMethod,
       paymentInfo      : {},
       token            : null
