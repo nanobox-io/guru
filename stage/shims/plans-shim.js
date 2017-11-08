@@ -133,7 +133,7 @@ export default class Shim {
         {
           id:'dedicated',
           name:'Dedicated',
-          cost:0,
+          cost:1,
           contact:true,
           features:[
             'We work hands on with your team to  configure your apps and your infrastructure',
@@ -144,7 +144,7 @@ export default class Shim {
         {
           id:'managed',
           name:'Fully<br/>Managed',
-          cost:0,
+          cost:1,
           contact:true,
           extends:'dedicated',
           features:[

@@ -65,24 +65,12 @@ let callbacks = {
 
   // Called to validate the team / business name
   validateTeamName(teamName, cb) {
-    console.log( `Validating team name : ${teamName}...` )
+    console.log( `Validating team name : '${teamName}'...` )
     setTimeout( ()=> {
       cb( {} )
     }, Math.random() * 2200 );
   },
 
-  /*
-  Create a team
-    kind     : String - 'team', 'business'
-    teamName : String
-    cb       : callback method (see above)
-  */
-  createNewTeam(kind, teamName, cb) {
-    console.log( `Creating a new ${kind} with the name ${teamName}` )
-    setTimeout( ()=> {
-      cb( {} )
-    }, Math.random() * 2200 );
-  },
 
   /*
   Create a payment method
@@ -91,14 +79,27 @@ let callbacks = {
     cb       : callback method (see above)
   */
   createPaymentMethod(kind, nonce, cb) {
-    console.log( `Creating a ${kind} payment method with a noce of ${nonce}` )
+    console.log( `Creating a '${kind}' payment method with a nonce of ${nonce}` )
     setTimeout( ()=> {
       cb( {} )
     }, Math.random() * 2200 );
   },
 
   /*
-  Change the plaform plan
+  Create a team
+    newPlan  : String - 'team', 'business'
+    teamName : String
+    cb       : callback method (see above)
+  */
+  changeCollaborationPlan(newPlan, teamName, cb) {
+    console.log( `Changing the collaboration plan to '${newPlan}' with the name ${teamName}` )
+    setTimeout( ()=> {
+      cb( {} )
+    }, Math.random() * 2200 );
+  },
+
+  /*
+  Change the platform plan
     newPlan : String - 'deploy', 'scale', etc..
   */
   changePlatformPlan(newPlan, cb) {
@@ -109,7 +110,7 @@ let callbacks = {
   },
 
   /*
-  Change the plaform plan
+  Change the support plan
     newPlan : String - 'community', 'basic', 'pro', etc..
   */
   changeSupportPlan(newPlan, cb) {

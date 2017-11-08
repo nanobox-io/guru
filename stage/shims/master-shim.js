@@ -6,6 +6,9 @@ export default class MasterShim {
     this.data = {
       accountDefaultScreen : 'register', // `register`, `login`, `reset`  -  defaults to : register
 
+      // Whether they can create a team in this context
+      canCreateTeam: true,
+
       // Info about what the user is trying to do as far as plan selection
       planSelection : {
         category      : 'platform', //  'platform', 'collaboration', 'support' ::  The category to choose, or the category to start with if `pickAllPlans` is true.
@@ -21,7 +24,10 @@ export default class MasterShim {
           platform      : 'scale',
           collaboration : 'team',
           support       : 'pro',
-        }
+        },
+        currentTeams:[
+          {}
+        ],
       },
 
       // All the plan details

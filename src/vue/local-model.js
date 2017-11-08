@@ -43,10 +43,11 @@ export default class LocalModel {
 
   getTeamName() {return this.originalModel.user.teamName != null ? this.originalModel.user.teamName : '' }
 
-  // .then(this.createNewTeam.bind(null, 'HAHAHA, worked'))
+  // When the user is ready to submit everything, run all of the following
   submit = (paymentMethod, cb)=>{
-    this.addPaymentMethod(paymentMethod)
-    .then(this.createNewTeam)
+    this.paymentMethod = paymentMethod
+    this.updateCollaboration()
+    .then(this.addPaymentMethod)
     .then(this.updatePlatform)
     .then(this.updateSupport)
     .then(cb)
@@ -58,36 +59,31 @@ export default class LocalModel {
   }
 
   // Add a payment method if needed
-  addPaymentMethod = (paymentMethod)=> {
+  addPaymentMethod = ()=> {
     return new Promise((resolve, reject)=>{
       if(this.originalModel.user.hasPaymentMethod)
         resolve()
       else{
-        this.callbacks.createPaymentMethod(paymentMethod.kind, paymentMethod.nonce, ()=>{
-          resolve()
+        this.callbacks.createPaymentMethod(this.paymentMethod.kind, this.paymentMethod.nonce, (results)=>{
+          this.handleCbResults(results, resolve, reject)
         })
       }
     })
   }
 
   // Create a new team if needed
-  createNewTeam = ()=> {
+  updateCollaboration = ()=> {
     return new Promise((resolve, reject)=>{
-      // Don't create a new team if they have selected the solo plan
-      if( this.selectedPlans.collaboration == 'solo' ){
-        resolve()
-        return
-      }
-      // If the new plan matches the old plan, don't create a new one
+      // If the new plan matches the old plan, no need to change it
       if(this.startedWithPlans){
         if(this.selectedPlans.collaboration == this.originalModel.user.currentPlans.collaboration){
           resolve()
           return
         }
       }
-      // This is a legitimate new plan, create it
-      this.callbacks.createNewTeam(this.selectedPlans.collaboration, this.selectedPlans.teamName, ()=>{
-        resolve()
+      // This is a legitimate new plan, change it
+      this.callbacks.changeCollaborationPlan(this.selectedPlans.collaboration, this.selectedPlans.teamName, (results)=>{
+        this.handleCbResults(results, resolve, reject)
       })
     })
   }

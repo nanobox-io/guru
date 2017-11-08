@@ -23,7 +23,7 @@ export default {
       }
     },
     ccInvalidField(){
-      console.log('Braintree says that something the user has entered is invalid')
+      this.$emit('error','Invalid field')
     },
     ccReadyForSubmit() {
       this.hasPaymentMethod = true
