@@ -1,6 +1,6 @@
 {
   "name": "guru",
-  "version": "0.0.33",
+  "version": "0.0.34",
   "description": "UI component for changing plans, creating accounts, etc",
   "author": "Mark Parson <mark@nanobox.io>",
   "private": true,
@@ -10,6 +10,7 @@
     "build": "node webpack/build.js"
   },
   "dependencies": {
+    "bluebird": "^3.5.1",
     "lexi": "tolmark12/nanobox-lexi",
     "lodash": "^4.17.4",
     "payments": "nanobox-io/dashboard-ui-payments",

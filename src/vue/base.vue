@@ -7,20 +7,20 @@ import account             from './account'
 import {x, flux, errors}   from 'lexi'
 import Sequence            from 'sequence'
 import Brain               from './brain'
+import LocalModel          from './local-model'
 
 export default {
   name  : 'guru',
   props : ['model', 'callbacks'],
   components : {x, choosePlatform, chooseCollaboration, chooseSupport, finalize, account, flux, errors},
   data() {
+    let localModel = new LocalModel(this.model, this.callbacks)
     let brain = new Brain(this.model, this)
     let obj =  {
+      localModel  : localModel,
       firstItem   : brain.sequence.firstItem,
       currentPage : brain.sequence.currentItem,
       brain       : brain,
-      error       : '',
-      // This may be better in a localModel
-      plans       : this.getDefaultPlans(),
     }
     if( !this.model.user.isLoggedIn )
       obj.currentPage = 'account'
@@ -35,45 +35,11 @@ export default {
       this.brain.sequence.prev()
       this.currentPage = this.brain.sequence.currentItem
     },
-    submitPlans(paymentInfo, cb) {
-      let planCopy = Object.assign({},this.plans)
-      delete planCopy.teamName
-      this.callbacks.setPlans(planCopy, this.plans.teamName, paymentInfo, (data)=>{
-        cb()
-        this.error = data.error
-      })
-    },
+
     onError(error){
-      this.error = error
+      this.localModel.error = error
     },
-    // Infer the plans based on what they may currently have selected, and what they may be trying to select
-    getDefaultPlans() {
-      let obj = {
-        platform      : 'deploy',
-        collaboration : 'solo',
-        support       : 'community',
-        teamName      : this.getTeamName()
-      }
-      // Set the values based on the current plans
-      if(this.model.user.currentPlans != null){
-        if(this.model.user.currentPlans.platform != null)
-          obj.platform = this.model.user.currentPlans.platform
-        if(this.model.user.currentPlans.collaboration != null)
-          obj.collaboration = this.model.user.currentPlans.collaboration
-        if(this.model.user.currentPlans.support != null)
-          obj.support = this.model.user.currentPlans.support
-      }
-      // Set the user's default selection if there is one
-      if(this.model.planSelection != null){
-        if(this.model.planSelection.choice != null){
-          if(this.model.planSelection.category != null){
-            obj[this.model.planSelection.category] = this.model.planSelection.choice
-          }
-        }
-      }
-      return obj
-    },
-    getTeamName() {return this.model.user.teamName != null ? this.model.user.teamName : '' }
+
   },
   computed:{
     loggedIn(){return this.model.user.isLoggedIn},
@@ -94,12 +60,12 @@ export default {
 <template lang="pug">
   .guru(v-bind:class="{account:currentPage == 'account'}")
     x.close(@click="callbacks.close")
-    errors(:errors="error")
-    account(v-if="currentPage == 'account'" :model="model" @register="callbacks.register" @login="callbacks.login" @forgot="callbacks.resetPassword" key="account" @error="onError")
-    choose-platform(:model="model" :plans="plans" v-if="currentPage == 'platform'" @next="nextSlide" @prev="prevSlide" key="platform" v-bind:class="{first:firstItem == 'platform'}" )
-    choose-collaboration(:model="model" :plans="plans" :validateTeamName="callbacks.validateTeamName" v-if="currentPage == 'collaboration'" @next="nextSlide" @prev="prevSlide" key="collaboration" v-bind:class="{first:firstItem == 'collaboration'}" @error="onError")
-    choose-support(:model="model" :plans="plans" v-if="currentPage == 'support'" @next="nextSlide" @prev="prevSlide" key="support" v-bind:class="{first:firstItem == 'support'}" )
-    finalize(:model="model" :getToken="callbacks.getToken" :plans="plans" v-if="currentPage == 'finalize'" @change="currentPage = arguments[0]" @prev="prevSlide" key="finalize" v-bind:class="{first:firstItem == 'finalize'}" @submit="submitPlans" @error="onError")
+    errors(:errors="localModel.error")
+    account(v-if="currentPage == 'account'" :model="localModel" @register="callbacks.register" @login="callbacks.login" @forgot="callbacks.resetPassword" key="account" @error="onError")
+    choose-platform(:model="localModel" :plans="localModel.selectedPlans" v-if="currentPage == 'platform'" @next="nextSlide" @prev="prevSlide" key="platform" v-bind:class="{first:firstItem == 'platform'}" )
+    choose-collaboration(:model="localModel" :plans="localModel.selectedPlans" :validateTeamName="callbacks.validateTeamName" v-if="currentPage == 'collaboration'" @next="nextSlide" @prev="prevSlide" key="collaboration" v-bind:class="{first:firstItem == 'collaboration'}" @error="onError")
+    choose-support(:model="localModel" :plans="localModel.selectedPlans" v-if="currentPage == 'support'" @next="nextSlide" @prev="prevSlide" key="support" v-bind:class="{first:firstItem == 'support'}" )
+    finalize(:model="localModel" :getToken="callbacks.getToken" :plans="localModel.selectedPlans" v-if="currentPage == 'finalize'" @change="currentPage = arguments[0]" @prev="prevSlide" key="finalize" v-bind:class="{first:firstItem == 'finalize'}" @submit="this.localModel.submit" @error="onError")
 </template>
 
 <!--

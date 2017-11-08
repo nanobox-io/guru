@@ -11,6 +11,13 @@ window.shim = new MasterShim()
 
 let callbacks = {
 
+  /*
+  Note on callbacks:
+  Most of these callbacks receive a `cb` parameter. After completing the actions,
+  call the `cb` method passing an object. Adding `error` to the object will display
+  an error to the user. EX : `cb({ error: 'Some Error' })`
+  */
+
   // Login
   login(data, cb){
     console.log( `Logging in. username:[${data.user}], password:[${data.password}]` )
@@ -49,26 +56,6 @@ let callbacks = {
     setTimeout( ()=> { cb({}) }, Math.random() * 1200 );
   },
 
-  // Set the plans the user chose & possibly the payment info
-  setPlans(plans, teamName, paymentInfo, cb){
-    let planStr = '';
-    planStr += `Changing plans to:\n`
-    planStr += `  platform      : ${plans.platform}\n`
-    planStr += `  collaboration : ${plans.collaboration}\n`
-    planStr += `  support       : ${plans.support}\n\n`
-    planStr += `Team Name is : ${teamName} (may be null)`
-
-    let paymentStr = '';
-    if(paymentInfo != null){
-      paymentStr += `The payment info the user added:\n`
-      paymentStr += `  kind       : ${paymentInfo.kind}\n`
-      paymentStr += `  nonce      : ${paymentInfo.nonce}\n`
-    }
-    console.log(planStr)
-    console.log(paymentStr)
-    setTimeout( ()=> { cb({error:""}) }, Math.random() * 1200 );
-  },
-
   // Retrieve a token
   getToken(cb) {
     setTimeout( ()=> {
@@ -82,6 +69,61 @@ let callbacks = {
     setTimeout( ()=> {
       cb( {} )
     }, Math.random() * 2200 );
+  },
+
+  /*
+  Create a team
+    kind     : String - 'team', 'business'
+    teamName : String
+    cb       : callback method (see above)
+  */
+  createNewTeam(kind, teamName, cb) {
+    console.log( `Creating a new ${kind} with the name ${teamName}` )
+    setTimeout( ()=> {
+      cb( {} )
+    }, Math.random() * 2200 );
+  },
+
+  /*
+  Create a payment method
+    kind  : String - 'card', 'paypal'
+    nonce : String
+    cb       : callback method (see above)
+  */
+  createPaymentMethod(kind, nonce, cb) {
+    console.log( `Creating a ${kind} payment method with a noce of ${nonce}` )
+    setTimeout( ()=> {
+      cb( {} )
+    }, Math.random() * 2200 );
+  },
+
+  /*
+  Change the plaform plan
+    newPlan : String - 'deploy', 'scale', etc..
+  */
+  changePlatformPlan(newPlan, cb) {
+    console.log( `Changing the platform to the '${newPlan}' plan` )
+    setTimeout( ()=> {
+      cb( {} )
+    }, Math.random() * 2200 );
+  },
+
+  /*
+  Change the plaform plan
+    newPlan : String - 'community', 'basic', 'pro', etc..
+  */
+  changeSupportPlan(newPlan, cb) {
+    console.log( `Changing the support plan to the '${newPlan}' plan` )
+    setTimeout( ()=> {
+      cb( {} )
+    }, Math.random() * 2200 );
+  },
+
+  /*
+  Called after the user has updated / saved his plan
+  */
+  saveComplete() {
+    console.log( "Save complete!" )
   },
 
   // Called when user clicks the X button
