@@ -107,7 +107,7 @@ export default {
   .account
     flux
       //- Register
-      .register(v-if="view == 'register'" v-bind:class="{full:customUsername}" key="register")
+      .register(v-if="view == 'register'" v-bind:class="{full:customUsername}" key="register" )
         .switcher
           .item(@click="view = 'login'") I already have an account
         .main-title
@@ -144,7 +144,7 @@ export default {
           .btn.lifecycle(@click="register" v-bind:class="{disabled:!registerValid, ing:submittingRegister}") Submit
 
       //- Login
-      .login(v-if="view == 'login'" key="login")
+      .login(v-if="view == 'login'" key="login" @keyup.enter="login")
         .switcher
           .item(@click="view = 'register'") Register
           .item.divider(@click="view = 'reset'") Forgot Password
@@ -159,7 +159,7 @@ export default {
           .btn.lifecycle(v-bind:class="{disabled:!loginValid, ing:submittingLogin}") Login
 
       //- Forgot Password
-      .forgot(v-if="view == 'reset'" key="reset")
+      .forgot(v-if="view == 'reset'" key="reset" @keyup.enter="forgotPassword")
         .switcher
           .item(@click="view = 'login'") Nevermind, I remember my password
         .main-title Reset Password
