@@ -9,6 +9,7 @@ export default class LocalModel {
     this.accountDefaultScreen = model.accountDefaultScreen
     this.user                 = model.user
     this.plans                = model.plans
+    this.teamName             = model.user.teamName
     this.startedWithPlans     = this.originalModel.user.currentPlans != null
     this.selectedPlans        = this.getDefaultPlans()
     this.error                = ''
@@ -52,8 +53,8 @@ export default class LocalModel {
   // Ensure the team name is valid
   validateTeamName(cb) {
     if(this.selectedPlans.collaboration != 'solo' ){
-      if(this.user.teamName != this.selectedPlans.teamName){
-        this.callbacks.validateTeamName(this.selectedPlans.teamName, cb)
+      if(this.user.teamName != this.teamName){
+        this.callbacks.validateTeamName(this.teamName, cb)
         return
       }
     }
@@ -63,8 +64,9 @@ export default class LocalModel {
   // When the user is ready to submit everything, run all of the following
   submit = (paymentMethod, cb)=>{
     this.paymentMethod = paymentMethod
-    this.changePlan('collaboration')
+    this.createTeam()
     .then(this.addPaymentMethod)
+    .then(this.changePlan.bind(this, 'collaboration'))
     .then(this.changePlan.bind(this, 'platform'))
     .then(this.changePlan.bind(this, 'support'))
     .then(cb)
@@ -85,6 +87,18 @@ export default class LocalModel {
           this.handleCbResults(results, resolve, reject)
         })
       }
+    })
+  }
+
+  // Create a team if needed
+  createTeam = ()=> {
+    return new Promise((resolve, reject)=>{
+      if(!this.isTeam && !this.isUser){
+        this.callbacks.createTeam(this.teamName, (results)=>{
+          this.handleCbResults(results, resolve, reject)
+        })
+      }else
+        resolve()
     })
   }
 

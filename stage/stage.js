@@ -67,6 +67,27 @@ let callbacks = {
     }, Math.random() * 2200 );
   },
 
+  // Called to create a new team
+  createTeam(teamName, cb) {
+    console.log( `Creating a new team nameed : '${teamName}'...` )
+    setTimeout( ()=> {
+      cb( {} )
+    }, Math.random() * 2200 );
+  },
+
+  /*
+  Create a payment method
+    kind  : String - 'card', 'paypal'
+    nonce : String
+    cb       : callback method (see above)
+  */
+  createPaymentMethod(kind, nonce, cb) {
+    console.log( `Creating a '${kind}' payment method with a nonce of ${nonce}` )
+    setTimeout( ()=> {
+      cb( {} )
+    }, Math.random() * 2200 );
+  },
+
 
   /*
   Change the plan
@@ -75,17 +96,6 @@ let callbacks = {
   */
   changePlan(category, newPlan, cb) {
     console.log( `Changing the '${category}' to the '${newPlan}' plan` )
-    setTimeout( ()=> {
-      cb( {} )
-    }, Math.random() * 2200 );
-  },
-
-  /*
-  Change the support plan
-    newPlan : String - 'community', 'basic', 'pro', etc..
-  */
-  changeSupportPlan(newPlan, cb) {
-    console.log( `Changing the support plan to the '${newPlan}' plan` )
     setTimeout( ()=> {
       cb( {} )
     }, Math.random() * 2200 );
@@ -115,8 +125,8 @@ let callbacks = {
 }
 
 window.shim = new MasterShim()
-// shim.login()
-// shim.addPaymentMethod()
+shim.login()
+shim.addPaymentMethod()
 // shim.isTeam()
 // shim.isUser()
 shim.newFromPricingPage()

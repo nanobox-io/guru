@@ -63,7 +63,7 @@ export default {
 
     .proceed
       transition(name="fade")
-        input(type="text" v-model="model.selectedPlans.teamName" v-if="model.selectedPlans.collaboration != 'solo'" :placeholder="`Name Your team`")
+        input(type="text" v-model="model.teamName" v-if="model.selectedPlans.collaboration != 'solo'" :placeholder="`Name Your team`")
       .back(@click="$emit('prev')") Back
       .btn.lifecycle(@click="validateTeam" v-bind:class="{ing:validating}") Next
 </template>
