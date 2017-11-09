@@ -1,0 +1,27 @@
+@mixin hexagon($width:110px, $color:#23AFEA) {
+  position: relative;
+  width: $width;
+  height: ($width * 0.5774);
+  background-color: $color;
+  margin: ($width * 0.2887) 0;
+
+  &:before,
+  &:after {
+    content: "";
+    position: absolute;
+    width: 0;
+    border-left:  $width*0.5 solid transparent;
+    border-right: $width*0.5 solid transparent;
+  }
+
+  &:before {
+    bottom: 100%;
+    border-bottom: $width * 0.2887 solid $color;
+  }
+
+  &:after {
+    top: 100%;
+    width: 0;
+    border-top: $width * 0.2887 solid $color;
+  }
+}

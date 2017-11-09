@@ -62,10 +62,10 @@ export default {
     x.close(@click="callbacks.close")
     errors(:errors="localModel.error")
     account(v-if="currentPage == 'account'" :model="localModel" @register="callbacks.register" @login="callbacks.login" @forgot="callbacks.resetPassword" key="account" @error="onError")
-    choose-platform(:model="localModel" :plans="localModel.selectedPlans" v-if="currentPage == 'platform'" @next="nextSlide" @prev="prevSlide" key="platform" v-bind:class="{first:firstItem == 'platform'}" )
-    choose-collaboration(:model="localModel" :plans="localModel.selectedPlans" :validateTeamName="callbacks.validateTeamName" v-if="currentPage == 'collaboration'" @next="nextSlide" @prev="prevSlide" key="collaboration" v-bind:class="{first:firstItem == 'collaboration'}" @error="onError")
-    choose-support(:model="localModel" :plans="localModel.selectedPlans" v-if="currentPage == 'support'" @next="nextSlide" @prev="prevSlide" key="support" v-bind:class="{first:firstItem == 'support'}" )
-    finalize(:model="localModel" :getToken="callbacks.getToken" :plans="localModel.selectedPlans" v-if="currentPage == 'finalize'" @change="currentPage = arguments[0]" @prev="prevSlide" key="finalize" v-bind:class="{first:firstItem == 'finalize'}" @submit="this.localModel.submit" @error="onError")
+    choose-platform(:model="localModel" v-if="currentPage == 'platform'" @next="nextSlide" @prev="prevSlide" key="platform" v-bind:class="{first:firstItem == 'platform'}" )
+    choose-collaboration(:model="localModel" v-if="currentPage == 'collaboration'" @next="nextSlide" @prev="prevSlide" key="collaboration" v-bind:class="{first:firstItem == 'collaboration'}" @manage-team="callbacks.manageTeam" @go-create-team="callbacks.goCreateNewTeam" @error="onError")
+    choose-support(:model="localModel" v-if="currentPage == 'support'" @next="nextSlide" @prev="prevSlide" key="support" v-bind:class="{first:firstItem == 'support'}" )
+    finalize(:model="localModel" :getToken="callbacks.getToken" v-if="currentPage == 'finalize'" @change="currentPage = arguments[0]" @prev="prevSlide" key="finalize" v-bind:class="{first:firstItem == 'finalize'}" @submit="this.localModel.submit" @error="onError")
 </template>
 
 <!--

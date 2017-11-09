@@ -5,3 +5,6 @@
   ☐ Validate the required fields before send
   ☐ handle any errors after send
 ☐ Move the token callback stuff to the payments component
+☐ Move the hexagon generator out
+☐ Combine the 3 plan saving methods in 'local-model'
+☐ Create team on collaboration step

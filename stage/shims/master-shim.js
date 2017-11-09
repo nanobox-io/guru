@@ -6,8 +6,8 @@ export default class MasterShim {
     this.data = {
       accountDefaultScreen : 'register', // `register`, `login`, `reset`  -  defaults to : register
 
-      // Whether they can create a team in this context
-      canCreateTeam: true,
+      // Set this if we want to send them somewhere after logging in / creating account
+      redirectAfterLogin: null,
 
       // Info about what the user is trying to do as far as plan selection
       planSelection : {
@@ -17,16 +17,19 @@ export default class MasterShim {
 
       // Info about the user's current state and current'y selected plans
       user : {
-        isLoggedIn       : true,
-        hasPaymentMethod : true,
+        isLoggedIn       : false,
+        hasPaymentMethod : false,
         teamName         : "Current Team Name", // Can be undefined
         currentPlans : {
           platform      : 'scale',
-          collaboration : 'team',
+          collaboration : 'solo',
           support       : 'pro',
         },
         currentTeams:[
-          {}
+          {id:"abcd1", name:"Core Team"},
+          {id:"abcd2", name:"Development Team"},
+          {id:"abcd3", name:"Alpha Centauri"},
+          {id:"abcd4", name:"Jungle Bros"}
         ],
       },
 
@@ -35,15 +38,31 @@ export default class MasterShim {
     }
   }
 
-  redirectAfterLogin(url="http://google.com") {
-    this.data.postLoginAction = {
-      do     : "redirect",
-      params : [url]
-    }
-  }
+  // Modifying the shim to simulate various scenarios
 
   login() {
     this.data.user.isLoggedIn = true;
+  }
+
+  addPaymentMethod() {
+    this.data.user.hasPaymentMethod = true
+  }
+
+  newFromPricingPage(hasSelectedFree) {
+    this.data.user.currentPlans = null;
+    this.data.user.currentTeams = [];
+    this.data.user.teamName     = null
+    if( hasSelectedFree ){
+      this.data.redirectAfterLogin = "http://google.com"
+    }
+  }
+
+  isTeam() {
+    this.data.user.currentPlans.collaboration = 'team'
+  }
+
+  isUser() {
+    this.data.user.currentPlans.collaboration = 'solo'
   }
 
   getToken() {

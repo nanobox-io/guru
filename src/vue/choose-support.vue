@@ -2,7 +2,7 @@
 import card from './card'
 export default {
   name: 'choose-support',
-  props:['model', 'plans'],
+  props:['model'],
   components:{card},
 }
 </script>
@@ -16,7 +16,7 @@ export default {
     .main-title Pick a level of support
     .plans
       .plan(v-for="plan in model.plans.support" :key="plan.name")
-        card.short(v-model="plans.support" :val="plan.id" v-bind:class="{contact:plan.contact}" :clickable="!plan.contact")
+        card.short(v-model="model.selectedPlans.support" :val="plan.id" v-bind:class="{contact:plan.contact}" :clickable="!plan.contact")
           .title(v-html="plan.name")
           .cost(v-if="!plan.contact") {{ plan.cost }}
           a(v-if="plan.contact" href="https://nanobox.io/contact-us/") Contact Us

@@ -8,7 +8,7 @@ export default {
   data(){
     return {
       submitting       : false,
-      selectedItem     : 'paypal',
+      selectedItem     : 'card',
       hasPaymentMethod : this.model.user.hasPaymentMethod,
       paymentInfo      : {},
       token            : null
@@ -57,7 +57,7 @@ export default {
     // Helpers
 
     getPlan(category) {
-      return _.find(this.model.plans[category], {id:this.plans[category] })
+      return _.find(this.model.plans[category], {id:this.model.selectedPlans[category] })
     }
   },
   mounted(){

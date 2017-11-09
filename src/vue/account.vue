@@ -255,7 +255,5 @@ export default {
     }
   }
 }
-.icon           {
-  svg * {stroke:red}
-}
+
 </style>

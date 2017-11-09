@@ -5,10 +5,6 @@ import Vue from 'vue'
 
 Vue.config.productionTip = false;
 
-window.shim = new MasterShim()
-// window.shim.login()
-// window.shim.redirectAfterLogin()
-
 let callbacks = {
 
   /*
@@ -73,37 +69,12 @@ let callbacks = {
 
 
   /*
-  Create a payment method
-    kind  : String - 'card', 'paypal'
-    nonce : String
-    cb       : callback method (see above)
+  Change the plan
+    category : String - 'platform', 'collaboration', 'support'
+    newPlan  : String - 'deploy', 'scale', etc..
   */
-  createPaymentMethod(kind, nonce, cb) {
-    console.log( `Creating a '${kind}' payment method with a nonce of ${nonce}` )
-    setTimeout( ()=> {
-      cb( {} )
-    }, Math.random() * 2200 );
-  },
-
-  /*
-  Create a team
-    newPlan  : String - 'team', 'business'
-    teamName : String
-    cb       : callback method (see above)
-  */
-  changeCollaborationPlan(newPlan, teamName, cb) {
-    console.log( `Changing the collaboration plan to '${newPlan}' with the name ${teamName}` )
-    setTimeout( ()=> {
-      cb( {} )
-    }, Math.random() * 2200 );
-  },
-
-  /*
-  Change the platform plan
-    newPlan : String - 'deploy', 'scale', etc..
-  */
-  changePlatformPlan(newPlan, cb) {
-    console.log( `Changing the platform to the '${newPlan}' plan` )
+  changePlan(category, newPlan, cb) {
+    console.log( `Changing the '${category}' to the '${newPlan}' plan` )
     setTimeout( ()=> {
       cb( {} )
     }, Math.random() * 2200 );
@@ -120,6 +91,16 @@ let callbacks = {
     }, Math.random() * 2200 );
   },
 
+  // Called when a user wants to manage a different team
+  manageTeam(teamId) {
+    console.log( `Manage the team with the id : '${teamId}'` )
+  },
+
+  // Called when leaving to create a new team
+  goCreateNewTeam() {
+    console.log( "The user is leaving to create a new team" )
+  },
+
   /*
   Called after the user has updated / saved his plan
   */
@@ -132,6 +113,14 @@ let callbacks = {
     window.location.reload(false)
   }
 }
+
+window.shim = new MasterShim()
+// shim.login()
+// shim.addPaymentMethod()
+// shim.isTeam()
+// shim.isUser()
+shim.newFromPricingPage()
+// shim.newFromPricingPage( true )
 
 
 new Vue({

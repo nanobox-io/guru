@@ -31,7 +31,10 @@ export default class Brain {
   }
 
   handleLoggedIn() {
-    if(this.model.planSelection != null)
+    if( this.model.redirectAfterLogin != null )
+      window.location = this.model.redirectAfterLogin
+
+    else if(this.model.planSelection != null)
       this.base.currentPage = this.sequence.currentItem
   }
 
