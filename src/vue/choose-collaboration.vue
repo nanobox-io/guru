@@ -63,7 +63,7 @@ export default {
 
     .proceed
       transition(name="fade")
-        input(type="text" v-model="model.teamName" v-if="model.selectedPlans.collaboration != 'solo'" :placeholder="`Name Your team`")
+        input(type="text" v-model="model.teamName" v-if="model.selectedPlans.collaboration != 'solo'" :placeholder="`Name Your team`" v-bind:disabled="model.isTeam")
       .back(@click="$emit('prev')") Back
       .btn.lifecycle(@click="validateTeam" v-bind:class="{ing:validating}") Next
 </template>
@@ -82,7 +82,9 @@ export default {
         }
       }
     }
-    input         {background:#EDF4F7; margin-right:30px; height:55px; flex-grow: 1; padding-left:20px; font-weight: $semibold;}
+    input         {background:#EDF4F7; margin-right:30px; height:55px; flex-grow: 1; padding-left:20px; font-weight: $semibold;
+      &:disabled  {background: white; padding: 0; }
+    }
     .img          {background: url(../assets/images/sprite.png); width: 100px; height:30px;
       &.solo      {width:31px; height:82px; background-position-x:-1px; }
       &.team      {width:61px; height:86px; background-position:-35px -1px;}

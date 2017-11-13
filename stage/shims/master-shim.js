@@ -18,7 +18,7 @@ export default class MasterShim {
       // Info about the user's current state and current'y selected plans
       user : {
         isLoggedIn       : false,
-        hasPaymentMethod : false,
+        hasPaymentMethod : null,
         teamName         : "Current Team Name", // Can be undefined
         currentPlans : {
           platform      : 'scale',
@@ -49,9 +49,9 @@ export default class MasterShim {
   }
 
   newFromPricingPage(hasSelectedFree) {
-    this.data.user.currentPlans = [];
-    this.data.user.currentTeams = [];
-    this.data.user.teamName     = null
+    this.data.user.currentPlans = null;
+    this.data.user.currentTeams = null;
+    this.data.user.teamName     = null;
     if( hasSelectedFree ){
       this.data.redirectAfterLogin = "http://google.com"
     }

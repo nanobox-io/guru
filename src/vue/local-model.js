@@ -10,7 +10,7 @@ export default class LocalModel {
     this.user                 = model.user
     this.plans                = model.plans
     this.teamName             = model.user.teamName
-    this.startedWithPlans     = this.originalModel.user.currentPlans.length > 0
+    this.startedWithPlans     = this.originalModel.user.currentPlans != null
     this.selectedPlans        = this.getDefaultPlans()
     this.error                = ''
     this.redirectAfterLogin   = model.redirectAfterLogin
@@ -18,6 +18,17 @@ export default class LocalModel {
     this.canCreateTeam        = model.canCreateTeam
     this.isTeam               = this.isTeam()
     this.isUser               = this.isUser()
+    this.setDefaults()
+  }
+
+  // Set any defaults that are not defined
+  setDefaults() {
+    if(this.teamName == null)
+      this.teamName = ''
+    if(this.user.currentTeams == null)
+      this.user.currentTeams  = []
+    if(this.user.hasPaymentMethod == null)
+      this.user.hasPaymentMethod = false
   }
 
   // Infer the plans based on what they may currently have selected, and what they may be trying to select
