@@ -49,7 +49,7 @@ export default class MasterShim {
   }
 
   newFromPricingPage(hasSelectedFree) {
-    this.data.user.currentPlans = null;
+    this.data.user.currentPlans = [];
     this.data.user.currentTeams = [];
     this.data.user.teamName     = null
     if( hasSelectedFree ){

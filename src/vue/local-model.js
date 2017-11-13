@@ -10,7 +10,7 @@ export default class LocalModel {
     this.user                 = model.user
     this.plans                = model.plans
     this.teamName             = model.user.teamName
-    this.startedWithPlans     = this.originalModel.user.currentPlans != null
+    this.startedWithPlans     = this.originalModel.user.currentPlans.length > 0
     this.selectedPlans        = this.getDefaultPlans()
     this.error                = ''
     this.redirectAfterLogin   = model.redirectAfterLogin
