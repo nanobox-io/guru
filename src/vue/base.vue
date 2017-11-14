@@ -86,5 +86,5 @@ export default {
   holder   {position: absolute; margin: auto;
             left: 0;  right: 0;
   }
-  .main.modal-mode{position: absolute; top:0; left:0; width: 100%; height: 100%; background: rgba(#0090d4,0.82); display: flex; align-items: center; justify-content: center; z-index: 10000; }
+  .main.modal-mode{position: fixed; top:0; left:0; width: 100%; height: 100%; background: rgba(#0090d4,0.82); display: flex; align-items: center; justify-content: center; z-index: 10000; }
 </style>
