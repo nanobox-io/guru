@@ -6,7 +6,10 @@
   ☐ handle any errors after send
 ☐ Move the token callback stuff to the payments component
 ☐ Move the hexagon generator out
+
 ☐ Combine the 3 plan saving methods in 'local-model'
-☐ Create team on collaboration step
+✔ Create team on collaboration step     done(√)
 ☐ Create design for stand alone team creation
-☐ Don't allow them to edit their team if it already exists
+✔ Don't allow them to edit their team if it already exists     done(√)
+
+☐ Add modal state

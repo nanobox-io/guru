@@ -58,14 +58,15 @@ export default {
 -->
 
 <template lang="pug">
-  .guru(v-bind:class="{account:currentPage == 'account'}")
-    x.close(@click="callbacks.close")
-    errors(:errors="localModel.error")
-    account(v-if="currentPage == 'account'" :model="localModel" @register="callbacks.register" @login="callbacks.login" @forgot="callbacks.resetPassword" key="account" @error="onError")
-    choose-platform(:model="localModel" v-if="currentPage == 'platform'" @next="nextSlide" @prev="prevSlide" key="platform" v-bind:class="{first:firstItem == 'platform'}" )
-    choose-collaboration(:model="localModel" v-if="currentPage == 'collaboration'" @next="nextSlide" @prev="prevSlide" key="collaboration" v-bind:class="{first:firstItem == 'collaboration'}" @manage-team="callbacks.manageTeam" @go-create-team="callbacks.goCreateNewTeam" @error="onError")
-    choose-support(:model="localModel" v-if="currentPage == 'support'" @next="nextSlide" @prev="prevSlide" key="support" v-bind:class="{first:firstItem == 'support'}" )
-    finalize(:model="localModel" :getToken="callbacks.getToken" v-if="currentPage == 'finalize'" @change="currentPage = arguments[0]" @prev="prevSlide" key="finalize" v-bind:class="{first:firstItem == 'finalize'}" @submit="this.localModel.submit" @error="onError")
+  .main(v-bind:class="{'modal-mode':model.isModal}")
+    .guru(v-bind:class="{account:currentPage == 'account'}")
+      x.close(@click="callbacks.close")
+      errors(:errors="localModel.error")
+      account(v-if="currentPage == 'account'" :model="localModel" @register="callbacks.register" @login="callbacks.login" @forgot="callbacks.resetPassword" key="account" @error="onError")
+      choose-platform(:model="localModel" v-if="currentPage == 'platform'" @next="nextSlide" @prev="prevSlide" key="platform" v-bind:class="{first:firstItem == 'platform'}" )
+      choose-collaboration(:model="localModel" v-if="currentPage == 'collaboration'" @next="nextSlide" @prev="prevSlide" key="collaboration" v-bind:class="{first:firstItem == 'collaboration'}" @manage-team="callbacks.manageTeam" @go-create-team="callbacks.goCreateNewTeam" @error="onError")
+      choose-support(:model="localModel" v-if="currentPage == 'support'" @next="nextSlide" @prev="prevSlide" key="support" v-bind:class="{first:firstItem == 'support'}" )
+      finalize(:model="localModel" :getToken="callbacks.getToken" v-if="currentPage == 'finalize'" @change="currentPage = arguments[0]" @prev="prevSlide" key="finalize" v-bind:class="{first:firstItem == 'finalize'}" @submit="this.localModel.submit" @error="onError")
 </template>
 
 <!--
@@ -73,7 +74,7 @@ export default {
 -->
 
 <style lang="scss" >
-  .guru         {width:965px; height:615px; padding:45px 63px; background: white; position: relative; transition:all 400ms $easeInOut; margin:0 auto;
+  .guru         {width:965px; height:615px; padding:45px 63px; background: white; position: relative; transition:all 400ms $easeInOut;
     @import 'shared';
     .close      {position: absolute;right:15px; top:15px; }
     &.account   {width:560px; }
@@ -82,4 +83,8 @@ export default {
     }
     .errors     {position: absolute; top:0; margin-bottom: 12px; margin-top: -60px; box-shadow: 0 2px 4px rgba(black,0.4);}
   }
+  holder   {position: absolute; margin: auto;
+            left: 0;  right: 0;
+  }
+  .main.modal-mode{position: absolute; top:0; left:0; width: 100%; height: 100%; background: rgba(#0090d4,0.82); display: flex; align-items: center; justify-content: center; z-index: 10000; }
 </style>

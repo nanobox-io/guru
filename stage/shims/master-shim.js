@@ -4,7 +4,11 @@ export default class MasterShim {
 
   constructor() {
     this.data = {
-      accountDefaultScreen : 'register', // `register`, `login`, `reset`  -  defaults to : register
+      // Set to true and this will behave as a modal
+      isModal : true,
+
+      // `register`, `login`, `reset`  -  defaults to : register
+      accountDefaultScreen : 'register',
 
       // Set this if we want to send them somewhere after logging in / creating account
       redirectAfterLogin: null,
