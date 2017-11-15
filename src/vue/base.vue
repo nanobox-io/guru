@@ -11,7 +11,7 @@ import LocalModel          from './local-model'
 
 export default {
   name  : 'guru',
-  props : ['model', 'callbacks'],
+  props : ['model', 'callbacks', 'isActive'],
   components : {x, choosePlatform, chooseCollaboration, chooseSupport, finalize, account, flux, errors},
   data() {
     let localModel = new LocalModel(this.model, this.callbacks)
@@ -58,7 +58,7 @@ export default {
 -->
 
 <template lang="pug">
-  .main(v-bind:class="{'modal-mode':model.isModal}")
+  .main(v-bind:class="{'modal-mode':model.isModal}" v-if="isActive")
     .guru(v-bind:class="{account:currentPage == 'account'}")
       x.close(@click="callbacks.close")
       errors(:errors="localModel.error")
@@ -74,17 +74,19 @@ export default {
 -->
 
 <style lang="scss" >
-  .guru         {width:965px; height:615px; padding:45px 63px; background: white; position: relative; transition:all 400ms $easeInOut;
+  .guru            {width:965px; height:615px; padding:45px 63px; background: white; position: relative; transition:all 400ms $easeInOut;
     @import 'shared';
-    .close      {position: absolute;right:15px; top:15px; }
-    &.account   {width:560px; }
-    > .first    {
-      .back     {display: none; }
+    .close         {position: absolute;right:15px; top:15px; display: none;}
+    &.account      {width:560px; }
+    > .first       {
+      .back        {display: none; }
     }
-    .errors     {position: absolute; top:0; margin-bottom: 12px; margin-top: -60px; box-shadow: 0 2px 4px rgba(black,0.4);}
+    .errors        {position: absolute; top:0; margin-bottom: 12px; margin-top: -60px; box-shadow: 0 2px 4px rgba(black,0.4);}
   }
-  holder   {position: absolute; margin: auto;
+  holder           {position: absolute; margin: auto;
             left: 0;  right: 0;
   }
-  .main.modal-mode{position: fixed; top:0; left:0; width: 100%; height: 100%; background: rgba(#0090d4,0.82); display: flex; align-items: center; justify-content: center; z-index: 10000; }
+  .main.modal-mode {position: fixed; top:0; left:0; width: 100%; height: 100%; background: rgba(#0090d4,0.82); display: flex; align-items: center; justify-content: center; z-index: 10000;
+    .close         {display: initial; }
+  }
 </style>

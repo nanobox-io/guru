@@ -135,10 +135,11 @@ shim.newFromPricingPage()
 
 new Vue({
   el       : '#app',
-  template : '<guru :model="model" :callbacks="callbacks"/>',
+  template : '<guru :model="model" :callbacks="callbacks" :isActive="isActive"/>',
   data     : {
     model     : shim.data,
-    callbacks : callbacks
+    callbacks : callbacks,
+    isActive  : true
   },
   components:{ guru }
 })
