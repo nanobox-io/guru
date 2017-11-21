@@ -11,6 +11,7 @@ export default class LocalModel {
     this.plans                = model.plans
     this.teamName             = model.user.teamName
     this.startedWithPlans     = this.originalModel.user.currentPlans != null
+    this.requireTeam          = model.planSelection.requireTeam
     this.selectedPlans        = this.getDefaultPlans()
     this.error                = ''
     this.redirectAfterLogin   = model.redirectAfterLogin
@@ -39,6 +40,11 @@ export default class LocalModel {
       support       : 'community',
       teamName      : this.getTeamName()
     }
+
+    console.log( this.requireTeam )
+    if(this.requireTeam)
+      obj.collaboration = 'team'
+
     // Set the values based on the current plans
     if(this.startedWithPlans){
       if(this.originalModel.user.currentPlans.platform != null)
@@ -56,6 +62,9 @@ export default class LocalModel {
         }
       }
     }
+
+
+
     return obj
   }
 

@@ -10,7 +10,6 @@ export default {
     let obj = {
       validating:false,
       otherTeam:"",
-      selectedPlan:{collaboration:'solo'},
     }
     if(this.model.user.currentTeams.length > 0)
       obj.otherTeam = this.model.user.currentTeams[0].id
@@ -36,7 +35,7 @@ export default {
 -->
 
 <template lang="pug">
-  .choose-collaboration(v-bind:class="{'is-team':model.isTeam, 'is-user':model.isUser, 'no-teams':model.user.currentTeams.length == 0}")
+  .choose-collaboration(v-bind:class="{'is-team':model.isTeam, 'is-user':model.isUser, 'no-teams':model.user.currentTeams.length == 0, 'require-team':model.requireTeam}")
     .main-title Collaboration
     .plans
       .plan(v-for="plan in model.plans.collaboration" :key="plan.id" :class="plan.id")
@@ -116,7 +115,7 @@ export default {
     .fade-enter, .fade-leave-to {
       opacity: 0
     }
-
+    &.require-team,
     &.is-team         {
       .plan.solo      {display: none; }
     }
