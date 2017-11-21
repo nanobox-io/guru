@@ -10,8 +10,8 @@ export default class LocalModel {
     this.user                 = model.user
     this.plans                = model.plans
     this.teamName             = model.user.teamName
-    this.startedWithPlans     = this.originalModel.user.currentPlans != null
-    this.requireTeam          = model.planSelection.requireTeam
+    this.isNewTeam          = model.planSelection.isNewTeam
+    this.startedWithPlans     = this.originalModel.user.currentPlans != null && !this.isNewTeam
     this.selectedPlans        = this.getDefaultPlans()
     this.error                = ''
     this.redirectAfterLogin   = model.redirectAfterLogin
@@ -20,6 +20,7 @@ export default class LocalModel {
     this.isTeam               = this.isTeam()
     this.isUser               = this.isUser()
     this.initialMessage       = this.getDefaultInitialMessage()
+    this.isComplete           = false
     this.setDefaults()
   }
 
@@ -42,7 +43,7 @@ export default class LocalModel {
       teamName      : this.getTeamName()
     }
 
-    if(this.requireTeam)
+    if(this.isNewTeam)
       obj.collaboration = 'team'
 
     // Set the values based on the current plans
@@ -108,7 +109,6 @@ export default class LocalModel {
     .then(cb)
     .then(this.submitSuccess)
     .then(this.callbacks.saveComplete)
-    .then(this.reset)
     .catch((error)=>{
       this.error = error.message
       cb()
@@ -143,7 +143,7 @@ export default class LocalModel {
   // After validating that the user's selection requires a save,
   // call the callback that will save the user's plan choide
   // @category : ex - 'platform', 'collaboration', 'support'
-  changePlan(category) {
+  changePlan = (category)=> {
     return new Promise((resolve, reject)=>{
       // If the new plan matches the old plan, no need to change it
       if(this.startedWithPlans){
@@ -159,18 +159,12 @@ export default class LocalModel {
     })
   }
 
-  submitSuccess() {
+  submitSuccess = ()=> {
     return new Promise((resolve, reject)=>{
-      console.log("hallaleya")
+      this.isComplete = true
       setTimeout( ()=> {
         resolve()
       }, 1200 );
-    })
-  }
-
-  reset(){
-    return new Promise((resolve, reject)=>{
-      resolve()
     })
   }
 

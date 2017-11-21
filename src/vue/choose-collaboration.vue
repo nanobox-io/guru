@@ -35,7 +35,7 @@ export default {
 -->
 
 <template lang="pug">
-  .choose-collaboration(v-bind:class="{'is-team':model.isTeam, 'is-user':model.isUser, 'no-teams':model.user.currentTeams.length == 0, 'require-team':model.requireTeam}")
+  .choose-collaboration(v-bind:class="{'is-team':model.isTeam, 'is-user':model.isUser, 'no-teams':model.user.currentTeams.length == 0, 'require-team':model.isNewTeam}")
     .main-title Collaboration
     .plans
       .plan(v-for="plan in model.plans.collaboration" :key="plan.id" :class="plan.id")

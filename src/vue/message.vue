@@ -24,7 +24,7 @@ export default {
 
 <style lang="scss" scoped>
   .txt {color:#8FABBF; font-size:17px; font-weight:$semibold; font-style: italic; }
-  .proceed{width:78%;
+  .proceed{
     .btn{font-size:14px; padding:0 30px; }
   }
 </style>

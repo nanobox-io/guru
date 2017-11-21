@@ -35,7 +35,6 @@ export default class Brain {
   }
 
   deleteMessageAndProceed() {
-    console.log( "hmmm" )
     this.sequence.removeItemByIndex(0)
   }
 

@@ -209,7 +209,7 @@ export default {
         &:-moz-placeholder {color:#B4C6D1; }
       }
     }
-    .switcher{position: absolute;bottom: -20px; left: -62px; color:#96DBFF; font-size:15px; font-style:italic; display: flex;
+    .switcher{position: absolute;bottom: -23px; left: 0px; color:#96DBFF; font-size:15px; font-style:italic; display: flex;
       .item  {cursor: pointer;
         &:hover{color:white; }
         &.divider{
@@ -221,7 +221,7 @@ export default {
     // ------------------------------------ Register
     .login,
     .register,
-    .forgot          {width:434px; height:580px; margin:0 auto; position: absolute; }
+    .forgot          {width:100%; height:100%; margin:0 auto; position: absolute; padding:45px 63px; }
 
     .register        {
       .terms         {
@@ -240,7 +240,7 @@ export default {
 
     // ------------------------------------ Login
 
-    .proceed         {display: flex; width:100%; align-items: center;
+    .proceed         {display: flex; align-items: center;
       .btn           {font-size:14px; padding: 0 35px; }
       .username      {display: flex; margin-right: auto; font-size:13px; font-style: italic; color:#93ABB9; align-items: baseline;
         .label       {@include caps(#93ABB9, 12px); font-style: normal;

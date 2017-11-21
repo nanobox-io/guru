@@ -9,11 +9,12 @@ import {x, flux, errors}   from 'lexi'
 import Sequence            from 'sequence'
 import Brain               from './brain'
 import LocalModel          from './local-model'
+import success             from './success'
 
 export default {
   name  : 'guru',
   props : ['model', 'callbacks'],
-  components : {x, choosePlatform, chooseCollaboration, chooseSupport, finalize, account, flux, errors, message},
+  components : {x, choosePlatform, chooseCollaboration, chooseSupport, finalize, account, flux, errors, message, success},
   data() {
     let localModel = new LocalModel(this.model, this.callbacks)
     let brain = new Brain(this.model, this)
@@ -64,10 +65,11 @@ export default {
 
 <template lang="pug">
   .main(v-bind:class="{'modal-mode':model.isModal}" )
-    .guru(v-bind:class="{account:currentPage == 'account', message:currentPage == 'message'}")
+    .guru(v-bind:class="{account:currentPage == 'account', message:currentPage == 'message', 'block-ui': localModel.isComplete}")
       x.close(@click="callbacks.close")
       errors(:errors="localModel.error")
-      flux(kind="fade")
+      success(v-if="localModel.isComplete")
+      flux.screens(kind="fade")
         message(v-if="currentPage == 'message'", :msg="model.initialMessage" @cancel="callbacks.close" @go="messageAccept" key="message")
         account(v-if="currentPage == 'account'" :model="localModel" @register="callbacks.register" @login="callbacks.login" @forgot="callbacks.resetPassword" key="account" @error="onError")
         choose-platform(:model="localModel" v-if="currentPage == 'platform'" @next="nextSlide" @prev="prevSlide" key="platform" v-bind:class="{first:firstItem == 'platform'}" )
@@ -81,15 +83,24 @@ export default {
 -->
 
 <style lang="scss" >
-  .guru            {width:965px; height:615px; padding:45px 63px; background: white; position: relative; transition:all 200ms $easeInOut;
+  .guru            {width:965px; height:615px; background: white; position: relative; transition:all 600ms $easeInOut;
     @import 'shared';
-    .close         {position: absolute;right:15px; top:15px; display: none;}
+    .close         {position: absolute;right:15px; top:15px; display: none; z-index: 1; }
+    .success       {position: absolute; margin:auto; left:0; right:0; top:0; bottom:0; z-index: 2;}
     &.account      {width:560px; }
     &.message      {width:560px; height:300px}
-    > .first       {
-      .back        {display: none; }
+    .screens       {
+      > *          {position: absolute; display: flex; flex-direction: column; width: 100%; height: 100%; height:100%; padding:45px 63px;
+        &.account  {padding:initial; }
+      }
+      > .first     {
+        .back      {display: none; }
+      }
     }
     .errors        {position: absolute; top:0; margin-bottom: 12px; margin-top: -60px; box-shadow: 0 2px 4px rgba(black,0.4);}
+    &.block-ui     {pointer-events: none;
+      .proceed     {display: none; }
+    }
   }
   holder           {position: absolute; margin: auto;
             left: 0;  right: 0;
