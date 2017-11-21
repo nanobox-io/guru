@@ -23,7 +23,7 @@ export default {
       }
     },
     ccInvalidField(){
-      this.$emit('error','Invalid field')
+      // this.$emit('error','Invalid field')
     },
     ccReadyForSubmit() {
       this.hasPaymentMethod = true

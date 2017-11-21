@@ -4,6 +4,7 @@ import chooseCollaboration from './choose-collaboration'
 import chooseSupport       from './choose-support'
 import finalize            from './finalize'
 import account             from './account'
+import message             from './message'
 import {x, flux, errors}   from 'lexi'
 import Sequence            from 'sequence'
 import Brain               from './brain'
@@ -12,7 +13,7 @@ import LocalModel          from './local-model'
 export default {
   name  : 'guru',
   props : ['model', 'callbacks'],
-  components : {x, choosePlatform, chooseCollaboration, chooseSupport, finalize, account, flux, errors},
+  components : {x, choosePlatform, chooseCollaboration, chooseSupport, finalize, account, flux, errors, message},
   data() {
     let localModel = new LocalModel(this.model, this.callbacks)
     let brain = new Brain(this.model, this)
@@ -35,7 +36,11 @@ export default {
       this.brain.sequence.prev()
       this.currentPage = this.brain.sequence.currentItem
     },
-
+    messageAccept() {
+      this.brain.deleteMessageAndProceed()
+      this.firstItem   = this.brain.sequence.firstItem
+      this.currentPage = this.brain.sequence.currentItem
+    },
     onError(error){
       this.localModel.error = error
     },
@@ -59,14 +64,16 @@ export default {
 
 <template lang="pug">
   .main(v-bind:class="{'modal-mode':model.isModal}" )
-    .guru(v-bind:class="{account:currentPage == 'account'}")
+    .guru(v-bind:class="{account:currentPage == 'account', message:currentPage == 'message'}")
       x.close(@click="callbacks.close")
       errors(:errors="localModel.error")
-      account(v-if="currentPage == 'account'" :model="localModel" @register="callbacks.register" @login="callbacks.login" @forgot="callbacks.resetPassword" key="account" @error="onError")
-      choose-platform(:model="localModel" v-if="currentPage == 'platform'" @next="nextSlide" @prev="prevSlide" key="platform" v-bind:class="{first:firstItem == 'platform'}" )
-      choose-collaboration(:model="localModel" v-if="currentPage == 'collaboration'" @next="nextSlide" @prev="prevSlide" key="collaboration" v-bind:class="{first:firstItem == 'collaboration'}" @manage-team="callbacks.manageTeam" @go-create-team="callbacks.goCreateNewTeam" @error="onError")
-      choose-support(:model="localModel" v-if="currentPage == 'support'" @next="nextSlide" @prev="prevSlide" key="support" v-bind:class="{first:firstItem == 'support'}" )
-      finalize(:model="localModel" :getToken="callbacks.getToken" v-if="currentPage == 'finalize'" @change="currentPage = arguments[0]" @prev="prevSlide" key="finalize" v-bind:class="{first:firstItem == 'finalize'}" @submit="this.localModel.submit" @error="onError")
+      flux(kind="fade")
+        message(v-if="currentPage == 'message'", :msg="model.initialMessage" @cancel="callbacks.close" @go="messageAccept" key="message")
+        account(v-if="currentPage == 'account'" :model="localModel" @register="callbacks.register" @login="callbacks.login" @forgot="callbacks.resetPassword" key="account" @error="onError")
+        choose-platform(:model="localModel" v-if="currentPage == 'platform'" @next="nextSlide" @prev="prevSlide" key="platform" v-bind:class="{first:firstItem == 'platform'}" )
+        choose-collaboration(:model="localModel" v-if="currentPage == 'collaboration'" @next="nextSlide" @prev="prevSlide" key="collaboration" v-bind:class="{first:firstItem == 'collaboration'}" @manage-team="callbacks.manageTeam" @go-create-team="callbacks.goCreateNewTeam" @error="onError")
+        choose-support(:model="localModel" v-if="currentPage == 'support'" @next="nextSlide" @prev="prevSlide" key="support" v-bind:class="{first:firstItem == 'support'}" )
+        finalize(:model="localModel" :getToken="callbacks.getToken" v-if="currentPage == 'finalize'" @change="currentPage = arguments[0]" @prev="prevSlide" key="finalize" v-bind:class="{first:firstItem == 'finalize'}" @submit="this.localModel.submit" @error="onError")
 </template>
 
 <!--
@@ -74,10 +81,11 @@ export default {
 -->
 
 <style lang="scss" >
-  .guru            {width:965px; height:615px; padding:45px 63px; background: white; position: relative; transition:all 400ms $easeInOut;
+  .guru            {width:965px; height:615px; padding:45px 63px; background: white; position: relative; transition:all 200ms $easeInOut;
     @import 'shared';
     .close         {position: absolute;right:15px; top:15px; display: none;}
     &.account      {width:560px; }
+    &.message      {width:560px; height:300px}
     > .first       {
       .back        {display: none; }
     }

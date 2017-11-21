@@ -26,7 +26,17 @@ export default class Brain {
       ar.splice(i,1)
       ar.unshift(category)
     }
+
+    if(this.model.initialMessage != null){
+      ar.unshift('message')
+    }
+
     this.sequence = new Sequence(ar)
+  }
+
+  deleteMessageAndProceed() {
+    console.log( "hmmm" )
+    this.sequence.removeItemByIndex(0)
   }
 
   handleLoggedIn() {

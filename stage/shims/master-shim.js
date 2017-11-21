@@ -40,6 +40,15 @@ export default class MasterShim {
 
       // All the plan details
       plans : new PlansShim().data,
+
+      // Initial Message to show the user
+      // Shows if `initialMessage` is not null
+      // If any of the following are undefined, these are the default values:
+      initialMessage:{
+        title   : "Plan Upgrade Required",
+        message : "You will need to upgrade your platform to do this action",
+        btnTxt  : "Manage Plans"
+      },
     }
   }
 
@@ -51,6 +60,10 @@ export default class MasterShim {
 
   addPaymentMethod() {
     this.data.user.hasPaymentMethod = true
+  }
+
+  removeMessage() {
+    this.data.initialMessage = null; 
   }
 
   setFirstPlan(category='platform', pickAllPlans=true) {

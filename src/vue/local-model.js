@@ -19,6 +19,7 @@ export default class LocalModel {
     this.canCreateTeam        = model.canCreateTeam
     this.isTeam               = this.isTeam()
     this.isUser               = this.isUser()
+    this.initialMessage       = this.getDefaultInitialMessage()
     this.setDefaults()
   }
 
@@ -63,6 +64,24 @@ export default class LocalModel {
     }
 
     return obj
+  }
+
+  getDefaultInitialMessage() {
+    if(this.originalModel.initialMessage != null){
+      let obj = {
+        title   : "Plan Upgrade Required",
+        message : "You will need to upgrade your platform to do this action",
+        btnTxt  : "Manage Plans"
+      }
+      if(this.originalModel.initialMessage.title != null)
+        obj.title = this.originalModel.initialMessage.title
+      if(this.originalModel.initialMessage.message != null)
+        obj.message = this.originalModel.initialMessage.message
+      if(this.originalModel.initialMessage.btnTxt != null)
+        obj.btnTxt = this.originalModel.initialMessage.btnTxt
+      return obj;
+    }
+    return null;
   }
 
   getTeamName() {return this.originalModel.user.teamName != null ? this.originalModel.user.teamName : '' }
