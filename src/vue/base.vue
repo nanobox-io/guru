@@ -11,7 +11,7 @@ import LocalModel          from './local-model'
 
 export default {
   name  : 'guru',
-  props : ['model', 'callbacks', 'isActive'],
+  props : ['model', 'callbacks'],
   components : {x, choosePlatform, chooseCollaboration, chooseSupport, finalize, account, flux, errors},
   data() {
     let localModel = new LocalModel(this.model, this.callbacks)
@@ -58,7 +58,7 @@ export default {
 -->
 
 <template lang="pug">
-  .main(v-bind:class="{'modal-mode':model.isModal}" v-if="isActive")
+  .main(v-bind:class="{'modal-mode':model.isModal}" )
     .guru(v-bind:class="{account:currentPage == 'account'}")
       x.close(@click="callbacks.close")
       errors(:errors="localModel.error")

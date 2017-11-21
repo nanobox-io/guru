@@ -14,8 +14,10 @@
 
 ✔ Add modal state     done(√)
 ------------------------------------
-☐ Make Role on register page a dropdown
-☐ Check Enter on register
+✔ Make Role on register page a dropdown     done(√)
+  ☐ In Lexi, add a class that looks similar to these text fields
+  ☐ Add a `placeholder` attr
+✔ Check Enter on register     done(√)
 ☐ Add success message?
 ☐ Initial Message
 ☐ On component close, reset the current page

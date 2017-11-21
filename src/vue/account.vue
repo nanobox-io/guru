@@ -1,9 +1,9 @@
 <script type="text/babel">
-import {checkbox, flux} from 'lexi'
+import {checkbox, flux, dropdown} from 'lexi'
 export default {
   name: 'account',
   props:['model'],
-  components:{checkbox, flux},
+  components:{checkbox, flux, dropdown},
   data(){
     return {
       view               : this.model.accountDefaultScreen == null ? 'register' : this.model.accountDefaultScreen,
@@ -20,7 +20,7 @@ export default {
       name               : '',
       phone              : '',
       company            : '',
-      role               : '',
+      role               : 'pick',
       haveReadTerms      : false,
     }
   },
@@ -107,7 +107,7 @@ export default {
   .account
     flux
       //- Register
-      .register(v-if="view == 'register'" v-bind:class="{full:customUsername}" key="register" )
+      .register(v-if="view == 'register'" v-bind:class="{full:customUsername}" key="register" @keyup.enter="register")
         .switcher
           .item(@click="view = 'login'") I already have an account
         .main-title
@@ -130,7 +130,12 @@ export default {
           input.optional(type="text" v-model="phone"   placeholder="Phone"   spellcheck="false")
         .form-row
           input.optional(type="text" v-model="company" placeholder="Company" spellcheck="false")
-          input.optional(type="text" v-model="role"    placeholder="Role"    spellcheck="false")
+          dropdown.custom(v-model="role" ref="dd2")
+            .option(value="pick") Select your role
+            .option(value="dev") Dev
+            .option(value="cto") CTO
+            .option(value="ceo") CEO
+            .option(value="manager") Project Manager
         .terms
           checkbox(v-model="haveReadTerms" @input="validateFields")
             .label I have read and agree to the
@@ -174,6 +179,11 @@ export default {
   ***** C S S *****
 -->
 
+<style lang="scss" >
+.lexi.drop-down.custom {width: 48.5%;
+  .trigger             {width:100%; border-bottom-color:#EBEFF2 !important; }
+}
+</style>
 <style lang="scss" scoped>
   .account        {
     .main-title   {position: relative;
@@ -181,7 +191,7 @@ export default {
         .txt:after{left:-17px; top:4px  }
       }
     }
-    .form-row     {display: flex; justify-content: space-between; margin-bottom:20px; }
+    .form-row     {display: flex; align-items: flex-end; justify-content: space-between; margin-bottom:20px; }
     label         {display: flex; flex-direction: column; @include caps(#93ABB9, 12px); margin-bottom: 20px;
       &.required  {
         .txt:after{content:"*"; font-size:22px; position: absolute; margin-left:3px; margin-top:-5px;  }
@@ -199,7 +209,6 @@ export default {
         &:-moz-placeholder {color:#B4C6D1; }
       }
     }
-
     .switcher{position: absolute;bottom: -20px; left: -62px; color:#96DBFF; font-size:15px; font-style:italic; display: flex;
       .item  {cursor: pointer;
         &:hover{color:white; }

@@ -127,16 +127,17 @@ let callbacks = {
 
 window.shim = new MasterShim()
 shim.login()
-// shim.addPaymentMethod()
+shim.addPaymentMethod()
 // shim.isTeam()
-// shim.isUser()
-shim.newFromPricingPage()
+shim.isUser()
+shim.setFirstPlan('support', false)
 // shim.setFirstPlan('collaboration', true)
+// shim.newFromPricingPage()
 // shim.newFromPricingPage( true )
 
-new Vue({
+window.myVue = new Vue({
   el       : '#app',
-  template : '<guru :model="model" :callbacks="callbacks" :isActive="isActive"/>',
+  template : '<guru :model="model" :callbacks="callbacks" v-if="isActive" />',
   data     : {
     model     : shim.data,
     callbacks : callbacks,

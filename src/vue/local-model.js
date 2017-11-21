@@ -87,7 +87,9 @@ export default class LocalModel {
     .then(this.changePlan.bind(this, 'platform'))
     .then(this.changePlan.bind(this, 'support'))
     .then(cb)
+    .then(this.submitSuccess)
     .then(this.callbacks.saveComplete)
+    .then(this.reset)
     .catch((error)=>{
       this.error = error.message
       cb()
@@ -135,6 +137,21 @@ export default class LocalModel {
       this.callbacks.changePlan(category, this.selectedPlans[category], (results)=>{
         this.handleCbResults(results, resolve, reject)
       })
+    })
+  }
+
+  submitSuccess() {
+    return new Promise((resolve, reject)=>{
+      console.log("hallaleya")
+      setTimeout( ()=> {
+        resolve()
+      }, 1200 );
+    })
+  }
+
+  reset(){
+    return new Promise((resolve, reject)=>{
+      resolve()
     })
   }
 
