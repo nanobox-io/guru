@@ -41,7 +41,6 @@ export default class LocalModel {
       teamName      : this.getTeamName()
     }
 
-    console.log( this.requireTeam )
     if(this.requireTeam)
       obj.collaboration = 'team'
 
@@ -62,8 +61,6 @@ export default class LocalModel {
         }
       }
     }
-
-
 
     return obj
   }

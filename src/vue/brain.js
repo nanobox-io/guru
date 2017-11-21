@@ -26,7 +26,6 @@ export default class Brain {
       ar.splice(i,1)
       ar.unshift(category)
     }
-
     this.sequence = new Sequence(ar)
   }
 

@@ -17,7 +17,7 @@ export default class MasterShim {
       planSelection : {
         category      : 'platform', //  'platform', 'collaboration', 'support' ::  The category to choose, or the category to start with if `pickAllPlans` is true.
         pickAllPlans  : true,       // Set as true to force the user to choose a plan for each category, false to just pick the above category
-        requireTeam   : true,
+        requireTeam   : null,       // Set as true to not allow the user to select a solo plan (can be null)
       },
 
       // Info about the user's current state and current'y selected plans

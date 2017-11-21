@@ -131,7 +131,7 @@ shim.login()
 // shim.isTeam()
 // shim.isUser()
 shim.newFromPricingPage()
-shim.setFirstPlan('collaboration', true)
+// shim.setFirstPlan('collaboration', true)
 // shim.newFromPricingPage( true )
 
 new Vue({
