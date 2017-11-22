@@ -11,7 +11,7 @@ export default class Brain {
   init() {
     let ar;
     if(this.model.planSelection == null){
-      ar = []
+      ar = ['platform', 'collaboration', 'support', 'finalize']
 
     // Selecting a single plan
     }else if( !this.model.planSelection.pickAllPlans ){

@@ -16,6 +16,7 @@ export default class MasterShim {
       // Info about what the user is trying to do as far as plan selection
       planSelection : {
         category      : 'platform', //  'platform', 'collaboration', 'support' ::  The category to choose, or the category to start with if `pickAllPlans` is true.
+        choice        : 'monitor',    // Can be null
         pickAllPlans  : true,       // Set as true to force the user to choose a plan for each category, false to just pick the above category
         isNewTeam     : null,       // Set as true to not allow the user to select a solo plan (can be null)
       },
@@ -54,6 +55,10 @@ export default class MasterShim {
 
   // Modifying the shim to simulate various scenarios
 
+  setDataByString(str) {
+    this.data = JSON.Parson(str)
+  }
+
   login() {
     this.data.user.isLoggedIn = true;
   }
@@ -69,7 +74,7 @@ export default class MasterShim {
   setFirstPlan(category='platform', pickAllPlans=true, isNewTeam=false) {
     this.data.planSelection.category     = category
     this.data.planSelection.pickAllPlans = pickAllPlans
-    this.data.planSelection.isNewTeam  = isNewTeam
+    this.data.planSelection.isNewTeam    = isNewTeam
   }
 
   newFromPricingPage(hasSelectedFree) {

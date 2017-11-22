@@ -10,7 +10,7 @@ export default class LocalModel {
     this.user                 = model.user
     this.plans                = model.plans
     this.teamName             = model.user.teamName
-    this.isNewTeam          = model.planSelection.isNewTeam
+    this.isNewTeam            = this.isNewTeam()
     this.startedWithPlans     = this.originalModel.user.currentPlans != null && !this.isNewTeam
     this.selectedPlans        = this.getDefaultPlans()
     this.error                = ''
@@ -63,7 +63,6 @@ export default class LocalModel {
         }
       }
     }
-
     return obj
   }
 
@@ -176,6 +175,14 @@ export default class LocalModel {
   }
 
   // ------------------------------------ Helpers
+
+  isNewTeam() {
+    if(this.originalModel.planSelection == null)
+      return false
+    if(this.originalModel.planSelection.isNewTeam)
+      return true
+    return false
+  }
 
   isTeam() {
     if(!this.startedWithPlans)

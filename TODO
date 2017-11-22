@@ -18,7 +18,8 @@
   ☐ In Lexi, add a class that looks similar to these text fields
   ☐ Add a `placeholder` attr
 ✔ Check Enter on register     done(√)
-☐ Add success message?
-☐ Initial Message
-☐ On component close, reset the current page
-☐ Invalid Field
+✔ Add success message?     done(√)
+✔ Initial Message     done(√)
+✔ On component close, reset the current page     done(√)
+✔ Invalid Field     done(√)
+☐ Inputs (labels) aren't full screen in firefox
