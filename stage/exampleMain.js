@@ -131,6 +131,7 @@ shim.login()
 // shim.isTeam()
 // shim.isUser()
 shim.removeMessage()
+shim.addMessage("title")
 // shim.setFirstPlan('support', false)
 // shim.setFirstPlan('collaboration', true, true)
 // shim.newFromPricingPage()
@@ -142,10 +143,6 @@ shim.data.planSelection.choice = null
 // shim.data.planSelection.pickAllPlans = null
 // shim.data.planSelection.isNewTeam = null
 
-// let dataEx = {"redirectAfterLogin":null,"user":{"isLoggedIn":true,"hasPaymentMethod":false,"teamName":null,"currentPlans":null,"currentTeams":[]},"plans":{"collaboration":[{"id":"solo","name":"Solo","cost":0,"state":"stable","extends":null,"features":[]},{"id":"team","name":"Team","cost":50,"state":"stable","extends":null,"features":["Collaborate with unlimited users"]},{"id":"business","name":"Business","cost":100,"state":"stable","extends":null,"features":["Collaborate with unlimited users","Organize apps into groups and control user access"]}],"platform":[{"id":"deploy","name":"Deploy","cost":0,"state":"stable","extends":null,"features":["Deploy apps to the cloud provider of your choice","Manage your apps with the intuitive Nanobox dashboard"]},{"id":"scale","name":"Scale","cost":25,"state":"stable","extends":"deploy","features":["Split apps across multiple servers","Create horizontal clusters for code redundancy and efficiency"]},{"id":"monitor","name":"Monitor","cost":50,"state":"alpha","extends":"scale","features":["Realtime monitoring","Create custom alerts based on container and server usage"]},{"id":"automate","name":"Automate","cost":75,"state":"alpha","extends":"monitor","features":["Configure your app to automatically scale up / down","Add additional automation based on health or other app events"]},{"id":"protect","name":"Protect","cost":100,"state":"alpha","extends":"automate","features":["Data Redundancy","Automatic Data Backups"]}],"support":[{"id":"community","name":"Community","cost":0,"state":"stable","extends":null,"features":["Join our very active slack channel","In depth guides \u0026 documentation"]},{"id":"basic","name":"Basic","cost":50,"state":"stable","extends":null,"features":["9-5pm MST Ticket support"]},{"id":"pro","name":"Pro","cost":100,"state":"stable","extends":null,"features":["24-7 Prioritized Ticket support"]},{"id":"dedicated","name":"Dedicated","cost":0,"state":"stable","extends":"pro","features":["We work hands on with your team to configure your apps and your infrastructure","We are available 24/7 via a dedicated phone number","Your team is given a private slack channel with direct access to our team"]},{"id":"managed","name":"Fully Managed","cost":0,"state":"stable","extends":"dedicated","features":["We configure your infrastructure and your apps","We monitor your infrastructure and actively respond to fluctuations in usage or health","We send weeky usage and health reports"]}]},"isModal":true,"planSelection":{"category":"","choice":"","pickAllPlans":false}}
-// console.log( dataEx )
-// console.log( shim.data )
-// shim.data = dataEx
 window.myVue = new Vue({
   el       : '#app',
   template : '<guru :model="model" :callbacks="callbacks" v-if="isActive" />',

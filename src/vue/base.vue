@@ -70,7 +70,7 @@ export default {
       errors(:errors="localModel.error")
       success(v-if="localModel.isComplete")
       flux.screens(kind="fade")
-        message(v-if="currentPage == 'message'", :msg="model.initialMessage" @cancel="callbacks.close" @go="messageAccept" key="message")
+        message(v-if="currentPage == 'message'", :msg="localModel.initialMessage" @cancel="callbacks.close" @go="messageAccept" key="message")
         account(v-if="currentPage == 'account'" :model="localModel" @register="callbacks.register" @login="callbacks.login" @forgot="callbacks.resetPassword" key="account" @error="onError")
         choose-platform(:model="localModel" v-if="currentPage == 'platform'" @next="nextSlide" @prev="prevSlide" key="platform" v-bind:class="{first:firstItem == 'platform'}" )
         choose-collaboration(:model="localModel" v-if="currentPage == 'collaboration'" @next="nextSlide" @prev="prevSlide" key="collaboration" v-bind:class="{first:firstItem == 'collaboration'}" @manage-team="callbacks.manageTeam" @go-create-team="callbacks.goCreateNewTeam" @error="onError")
