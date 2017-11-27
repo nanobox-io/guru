@@ -17,6 +17,7 @@ export default {
   },
   methods:{
     validateTeam() {
+      this.$emit('error', '')
       this.validating = true
       this.model.validateTeamName( (results)=>{
         this.validating = false
