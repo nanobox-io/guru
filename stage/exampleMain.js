@@ -20,7 +20,6 @@ let callbacks = {
     console.log( `Logging in. username:[${data.user}], password:[${data.password}]` )
     setTimeout( ()=> {
       cb({});
-      console.log( shim.data.user.isLoggedIn )
       shim.login()
     }, Math.random() * 1200 );
   },
@@ -126,7 +125,7 @@ let callbacks = {
 }
 
 window.shim = new MasterShim()
-shim.login()
+// shim.login()
 // shim.addPaymentMethod()
 // shim.isTeam()
 // shim.isUser()
@@ -138,8 +137,8 @@ shim.removeMessage()
 // shim.newFromPricingPage( true )
 
 // shim.data.planSelection = {}
-shim.data.planSelection.category = null
-shim.data.planSelection.choice = null
+// shim.data.planSelection.category = null
+// shim.data.planSelection.choice = null
 // shim.data.planSelection.pickAllPlans = null
 // shim.data.planSelection.isNewTeam = null
 

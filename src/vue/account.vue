@@ -7,7 +7,7 @@ export default {
   data(){
     return {
       view               : this.model.accountDefaultScreen == null ? 'register' : this.model.accountDefaultScreen,
-      customUsername     : false,
+      customUsername     : true,
       registerValid      : false,
       loginValid         : false,
       submittingLogin    : false,
@@ -28,6 +28,7 @@ export default {
     // REGISTER
     register(){
       this.$emit('error', '')
+      return
       let vals = {
         user          : this.user,
         email         : this.email,

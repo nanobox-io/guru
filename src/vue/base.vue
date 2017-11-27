@@ -17,7 +17,7 @@ export default {
   components : {x, choosePlatform, chooseCollaboration, chooseSupport, finalize, account, flux, errors, message, success},
   data() {
     let localModel = new LocalModel(this.model, this.callbacks)
-    let brain = new Brain(this.model, this)
+    let brain = new Brain(localModel, this)
     let obj =  {
       localModel  : localModel,
       firstItem   : brain.sequence.firstItem,
@@ -83,29 +83,28 @@ export default {
 -->
 
 <style lang="scss" >
-  .guru            {width:965px; height:615px; background: white; position: relative; transition:all 600ms $easeInOut;
-    @import 'shared';
-    .close         {position: absolute;right:15px; top:15px; display: none; z-index: 1; }
-    .success       {position: absolute; margin:auto; left:0; right:0; top:0; bottom:0; z-index: 2;}
-    &.account      {width:560px; }
-    &.message      {width:560px; height:300px}
-    .screens       {
-      > *          {position: absolute; display: flex; flex-direction: column; width: 100%; height: 100%; height:100%; padding:45px 63px;
-        &.account  {padding:initial; }
+  .main{
+    .guru            {width:965px; height:615px; background: white; position: relative; transition:all 600ms $easeInOut;
+      @import 'shared';
+      .close         {position: absolute;right:15px; top:15px; display: none; z-index: 1; }
+      .success       {position: absolute; margin:auto; left:0; right:0; top:0; bottom:0; z-index: 2;}
+      &.account      {width:560px; }
+      &.message      {width:560px; height:300px}
+      .screens       {
+        > *          {position: absolute; display: flex; flex-direction: column; width: 100%; height: 100%; height:100%; padding:45px 63px;
+          &.account  {padding:initial; }
+        }
+        > .first     {
+          .back      {display: none; }
+        }
       }
-      > .first     {
-        .back      {display: none; }
+      .errors        {position: absolute; top:10px;  margin-top: -60px; box-shadow: 0 2px 4px rgba(black,0.4);}
+      &.block-ui     {pointer-events: none;
+        .proceed     {display: none; }
       }
     }
-    .errors        {position: absolute; top:0; margin-bottom: 12px; margin-top: -60px; box-shadow: 0 2px 4px rgba(black,0.4);}
-    &.block-ui     {pointer-events: none;
-      .proceed     {display: none; }
+    &.modal-mode {position: fixed; top:0; left:0; width: 100%; height: 100%; background: rgba(#0090d4,0.82); display: flex; align-items: center; justify-content: center; z-index: 10000;
+      .close         {display: initial; }
     }
-  }
-  holder           {position: absolute; margin: auto;
-            left: 0;  right: 0;
-  }
-  .main.modal-mode {position: fixed; top:0; left:0; width: 100%; height: 100%; background: rgba(#0090d4,0.82); display: flex; align-items: center; justify-content: center; z-index: 10000;
-    .close         {display: initial; }
   }
 </style>

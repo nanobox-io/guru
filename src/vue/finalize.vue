@@ -68,6 +68,14 @@ export default {
         this.$emit('error', data.error)
       this.token = data.token
     })
+  },
+  computed : {
+    totalCost(){
+      return this.getPlan('platform').cost + this.getPlan('collaboration').cost + this.getPlan('support').cost
+    },
+    needsPaymentMethod() {
+      return !this.model.user.hasPaymentMethod  && this.totalCost != 0
+    }
   }
 }
 </script>
@@ -98,16 +106,16 @@ export default {
           .cost {{getPlan('support').cost}}
       .total.cost
         .label Total
-        | {{getPlan('platform').cost + getPlan('collaboration').cost + getPlan('support').cost}}
-    .pay(v-if="!model.user.hasPaymentMethod && token != null")
+        | {{ totalCost }}
+    .pay(v-if="needsPaymentMethod && token != null")
       .txt Choose a payment method
       mini-nav(@change="selectedItem = arguments[0]")
       paypal( :token="token" @complete="paypalComplete" v-if="selectedItem == 'paypal'")
       credit-card( :token="token" @complete="ccSubmitComplete" @error="ccError" @ready="ccReadyForSubmit" @invalid="ccInvalidField" ref="card" v-if="selectedItem == 'card'")
-    .getting-token(v-if="!model.user.hasPaymentMethod && token == null") Preparing Request...
+    .getting-token(v-if="needsPaymentMethod && token == null") Preparing Request...
     .proceed.right
       .back(@click="$emit('prev')") Back
-      .btn.lifecycle(v-bind:class="{disabled:!hasPaymentMethod, ing:submitting}" @click="submitClick") Submit
+      .btn.lifecycle(v-bind:class="{disabled:!hasPaymentMethod && totalCost != 0, ing:submitting}" @click="submitClick") Submit
 </template>
 
 <!--
@@ -138,6 +146,6 @@ export default {
       }
     }
 
-    .getting-token       {display: flex; align-items: center; justify-content: flex-end; width:360px; height:520px; font-size:15px; font-style: italic; color:#758C94}
+    .getting-token       {display: flex; align-items: center; justify-content: flex-end; width:360px; margin-top: 210px; font-size:15px; font-style: italic; color:#758C94}
   }
 </style>

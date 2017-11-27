@@ -15,6 +15,7 @@ export default class LocalModel {
     this.selectedPlans        = this.getDefaultPlans()
     this.error                = ''
     this.redirectAfterLogin   = model.redirectAfterLogin
+    this.planSelection        = model.planSelection
     // Collaboration
     this.canCreateTeam        = model.canCreateTeam
     this.isTeam               = this.isTeam()
@@ -25,13 +26,18 @@ export default class LocalModel {
   }
 
   // Set any defaults that are not defined
-  setDefaults() {
+  setDefaults(model) {
     if(this.teamName == null)
       this.teamName = ''
     if(this.user.currentTeams == null)
       this.user.currentTeams  = []
     if(this.user.hasPaymentMethod == null)
       this.user.hasPaymentMethod = false
+    // If the user is trying to select the free platform plan, call the on complete after login
+    if(this.planSelection!= null){
+      if(this.planSelection.category == 'platform' && this.planSelection.choice == 'deploy')
+        this.skipPricingChoices = true
+    }
   }
 
   // Infer the plans based on what they may currently have selected, and what they may be trying to select
