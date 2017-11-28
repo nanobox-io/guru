@@ -127,7 +127,7 @@ let callbacks = {
 window.shim = new MasterShim()
 shim.removeMessage()
 shim.login()
-shim.addPaymentMethod()
+// shim.addPaymentMethod()
 // shim.isTeam()
 // shim.isUser()
 // shim.addMessage("title")

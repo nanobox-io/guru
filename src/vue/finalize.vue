@@ -72,7 +72,7 @@ export default {
   },
   computed : {
     totalCost(){
-      return this.getPlan('platform').cost + this.getPlan('collaboration').cost + this.getPlan('support').cost
+      return this.model.totalCost()
     },
     needsPaymentMethod() {
       return !this.model.user.hasPaymentMethod  && this.totalCost != 0

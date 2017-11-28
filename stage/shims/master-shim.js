@@ -13,6 +13,9 @@ export default class MasterShim {
       // Set this if we want to send them somewhere after logging in / creating account
       redirectAfterLogin: null,
 
+      // Set this to true if we're creating an account
+      isCreatingAccount : null,
+
       // Info about what the user is trying to do as far as plan selection
       planSelection : {
         category      : 'platform', //  'platform', 'collaboration', 'support' ::  The category to choose, or the category to start with if `pickAllPlans` is true.

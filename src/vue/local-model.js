@@ -124,7 +124,7 @@ export default class LocalModel {
   // Add a payment method if needed
   addPaymentMethod = ()=> {
     return new Promise((resolve, reject)=>{
-      if(this.originalModel.user.hasPaymentMethod)
+      if(this.originalModel.user.hasPaymentMethod || this.totalCost() == 0 )
         resolve()
       else{
         this.callbacks.createPaymentMethod(this.paymentMethod.kind, this.paymentMethod.nonce, (results)=>{
@@ -182,6 +182,14 @@ export default class LocalModel {
   }
 
   // ------------------------------------ Helpers
+
+  getPlan(category) {
+    return _.find(this.plans[category], {id:this.selectedPlans[category] })
+  }
+
+  totalCost() {
+    return this.getPlan('platform').cost + this.getPlan('collaboration').cost + this.getPlan('support').cost
+  }
 
   isNewTeam() {
     if(this.originalModel.planSelection == null)
