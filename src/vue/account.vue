@@ -28,7 +28,6 @@ export default {
     // REGISTER
     register(){
       this.$emit('error', '')
-      return
       let vals = {
         user          : this.user,
         email         : this.email,
