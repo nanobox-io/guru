@@ -43,11 +43,12 @@ export default {
     submitClick() {
       this.submitting = true
       this.$emit('error', '')
-      if(this.selectedItem == 'card' && !this.model.user.hasPaymentMethod)
+      if(this.selectedItem == 'card' && !this.model.user.hasPaymentMethod && this.needsPaymentMethod)
         this.$refs.card.submit()
       else
         this.submit()
     },
+
     submit() {
       this.$emit('submit', this.paymentInfo, ()=>{
         this.submitting = false
