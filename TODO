@@ -27,4 +27,4 @@
 ------------------------------------
 ☐ On error, the error message pushes everyting down
 ✔ payment method shouldn't be required if the cost is $0     done(√)
-☐ If they just selected the free platform on account creation, just redirect to the dashboard
+✔ If they just selected the free platform on account creation, just redirect to the dashboard     done(√)

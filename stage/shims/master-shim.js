@@ -78,12 +78,7 @@ export default class MasterShim {
   }
 
   newFromPricingPage(hasSelectedFree) {
-    this.data.user.currentPlans = null;
-    this.data.user.currentTeams = null;
-    this.data.user.teamName     = null;
-    if( hasSelectedFree ){
-      this.data.redirectAfterLogin = "http://google.com"
-    }
+    this.data.isCreatingAccount = true
   }
 
   isTeam() {

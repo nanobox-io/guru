@@ -16,6 +16,7 @@ export default class LocalModel {
     this.error                = ''
     this.redirectAfterLogin   = model.redirectAfterLogin
     this.planSelection        = model.planSelection
+    this.isCreatingAccount    = model.isCreatingAccount
     // Collaboration
     this.canCreateTeam        = model.canCreateTeam
     this.isTeam               = this.isTeam()
@@ -191,6 +192,8 @@ export default class LocalModel {
   }
 
   isTeam() {
+    if(this.isCreatingAccount)
+      return false
     if(!this.startedWithPlans)
       return false
     if(this.originalModel.user.currentPlans.collaboration == 'solo')
@@ -199,6 +202,8 @@ export default class LocalModel {
   }
 
   isUser() {
+    if(this.isCreatingAccount)
+      return false
     if(!this.startedWithPlans)
       return false
     if(this.originalModel.user.currentPlans.collaboration == 'solo')

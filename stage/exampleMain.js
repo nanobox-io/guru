@@ -125,7 +125,7 @@ let callbacks = {
 }
 
 window.shim = new MasterShim()
-// shim.login()
+shim.login()
 // shim.addPaymentMethod()
 // shim.isTeam()
 // shim.isUser()
@@ -133,7 +133,7 @@ shim.removeMessage()
 // shim.addMessage("title")
 // shim.setFirstPlan('support', false)
 // shim.setFirstPlan('collaboration', true, true)
-// shim.newFromPricingPage()
+shim.newFromPricingPage()
 // shim.newFromPricingPage( true )
 
 // shim.data.planSelection = {}
