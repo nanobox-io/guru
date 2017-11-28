@@ -137,7 +137,7 @@ export default class LocalModel {
   // Create a team if needed
   createTeam = ()=> {
     return new Promise((resolve, reject)=>{
-      if(!this.isTeam && !this.isUser){
+      if(!this.isTeam && !this.isUser && this.selectedPlans.collaboration != 'solo'){
         this.callbacks.createTeam(this.teamName, (results)=>{
           this.handleCbResults(results, resolve, reject)
         })

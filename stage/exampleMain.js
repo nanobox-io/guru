@@ -63,7 +63,7 @@ let callbacks = {
   validateTeamName(teamName, cb) {
     console.log( `Validating team name : '${teamName}'...` )
     setTimeout( ()=> {
-      cb( {} )
+      cb( {error:"asdf"} )
     }, Math.random() * 2200 );
   },
 
@@ -125,15 +125,15 @@ let callbacks = {
 }
 
 window.shim = new MasterShim()
+shim.removeMessage()
 shim.login()
 shim.addPaymentMethod()
 // shim.isTeam()
-shim.isUser()
-shim.removeMessage()
+// shim.isUser()
 // shim.addMessage("title")
 // shim.setFirstPlan('support', false)
 // shim.setFirstPlan('collaboration', true, true)
-// shim.newFromPricingPage()
+shim.newFromPricingPage()
 // shim.newFromPricingPage( true )
 
 // shim.data.planSelection = {}
