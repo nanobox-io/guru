@@ -81,6 +81,11 @@ export default class MasterShim {
   }
 
   newFromPricingPage(hasSelectedFree) {
+    if( hasSelectedFree){
+      this.data.category = 'platform'
+      this.data.choice   = 'deploy'
+    }
+
     this.data.isCreatingAccount = true
   }
 

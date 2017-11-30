@@ -41,9 +41,9 @@ export default class Brain {
   handleLoggedIn() {
     if( this.model.redirectAfterLogin != null ){
       window.location = this.model.redirectAfterLogin
-
     }else if( this.model.skipPricingChoices){
       this.model.submitSuccess()
+      this.model.callbacks.saveComplete()
     }else if(this.model.planSelection != null){
       this.base.currentPage = this.sequence.currentItem
     }
