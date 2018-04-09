@@ -10,11 +10,12 @@ import Sequence            from 'sequence'
 import Brain               from './brain'
 import LocalModel          from './local-model'
 import success             from './success'
+import getAQuote           from './get-a-quote'
 
 export default {
   name  : 'guru',
   props : ['model', 'callbacks'],
-  components : {x, choosePlatform, chooseCollaboration, chooseSupport, finalize, account, flux, errors, message, success},
+  components : {x, choosePlatform, chooseCollaboration, chooseSupport, finalize, account, flux, errors, message, success, getAQuote},
   data() {
     let localModel = new LocalModel(this.model, this.callbacks)
     let brain = new Brain(localModel, this)
@@ -26,6 +27,9 @@ export default {
     }
     if( !this.model.user.isLoggedIn )
       obj.currentPage = 'account'
+    else if( this.model.showNewPricing )
+      obj.currentPage = 'get-a-quote'
+
     return obj
   },
   methods    : {
@@ -76,6 +80,7 @@ export default {
         choose-collaboration(:model="localModel" v-if="currentPage == 'collaboration'" @next="nextSlide" @prev="prevSlide" key="collaboration" v-bind:class="{first:firstItem == 'collaboration'}" @manage-team="callbacks.manageTeam" @go-create-team="callbacks.goCreateNewTeam" @error="onError")
         choose-support(:model="localModel" v-if="currentPage == 'support'" @next="nextSlide" @prev="prevSlide" key="support" v-bind:class="{first:firstItem == 'support'}" )
         finalize(:model="localModel" :getToken="callbacks.getToken" v-if="currentPage == 'finalize'" @change="currentPage = arguments[0]" @prev="prevSlide" key="finalize" v-bind:class="{first:firstItem == 'finalize'}" @submit="this.localModel.submit" @error="onError")
+        get-a-quote(v-if="currentPage == 'get-a-quote'" key="get-a-quote")
 </template>
 
 <!--

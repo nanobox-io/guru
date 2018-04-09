@@ -16,6 +16,9 @@ export default class MasterShim {
       // Set this to true if we're creating an account
       isCreatingAccount : null,
 
+      // Set this to true while we are figuring out the new pricing page
+      showNewPricing : false,
+
       // Info about what the user is trying to do as far as plan selection
       planSelection : {
         category      : 'platform', //  'platform', 'collaboration', 'support' ::  The category to choose, or the category to start with if `pickAllPlans` is true.
@@ -103,6 +106,11 @@ export default class MasterShim {
       message,
       btnTxt,
     }
+  }
+
+  // Temporarily
+  addTempBandage() {
+    this.data.showNewPricing = true
   }
 
   getToken() {

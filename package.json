@@ -1,6 +1,6 @@
 {
   "name": "guru",
-  "version": "0.0.63",
+  "version": "0.0.64",
   "description": "UI component for changing plans, creating accounts, etc",
   "author": "Mark Parson <mark@nanobox.io>",
   "private": true,

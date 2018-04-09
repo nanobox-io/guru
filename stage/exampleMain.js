@@ -121,12 +121,13 @@ let callbacks = {
   // Called when user clicks the X button
   close(){
     window.location.reload(false)
-  }
+  },
 }
 
 window.shim = new MasterShim()
 shim.removeMessage()
-// shim.login()
+shim.login()
+shim.addTempBandage()
 // shim.addPaymentMethod()
 // shim.isTeam()
 // shim.isUser()
