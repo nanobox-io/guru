@@ -14,9 +14,9 @@ export default {
       submittingRegister : false,
       submittingForgot   : false,
       // Form Fields
-      user               : '',
-      email              : '',
-      password           : '',
+      user               : 'asdfasdfasdf',
+      email              : 'a@a.com',
+      password           : 'asasdfasdfsad',
       name               : '',
       phone              : '',
       company            : '',
@@ -95,6 +95,9 @@ export default {
         this.$refs.username.focus()
       }, 500 );
     }
+  },
+  created(){
+    this.validateFields()
   }
 }
 </script>
