@@ -109,7 +109,11 @@ export default {
       }
     }
     &.modal-mode {position: fixed; top:0; left:0; width: 100%; height: 100%; background: rgba(#0090d4,0.82); display: flex; align-items: center; justify-content: center; z-index: 10000;
-      .close         {display: initial; }
+      .close     {display: initial; }
+      // If screen gets too short, fix it to the top so that we can see errors
+      @media screen and (max-height: 650px + 55px) {
+        align-items: flex-start; padding-top:55px; overflow-y: scroll; 
+      }
     }
   }
 </style>
