@@ -11,7 +11,6 @@
   },
   "dependencies": {
     "bluebird": "^3.5.1",
-    "gulp": "^3.9.1",
     "lexi": "tolmark12/nanobox-lexi",
     "lodash": "^4.17.4",
     "payments": "nanobox-io/dashboard-ui-payments",
