@@ -14,9 +14,9 @@ export default {
       submittingRegister : false,
       submittingForgot   : false,
       // Form Fields
-      user               : 'asdfasdfasdf',
-      email              : 'a@a.com',
-      password           : 'asasdfasdfsad',
+      user               : '',
+      email              : '',
+      password           : '',
       name               : '',
       phone              : '',
       company            : '',
