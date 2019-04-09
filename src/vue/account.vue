@@ -5,8 +5,14 @@ export default {
   props:['model'],
   components:{checkbox, flux, dropdown},
   data(){
+    // If someone is tryinhg to register, redirect to the
+    // Digio nanobox announcemenht page
+    if( this.model.accountDefaultScreen == "register"){
+      window.location.href = 'https://www.digitalocean.com/nanobox'
+    }
+
     return {
-      view               : this.model.accountDefaultScreen == null ? 'register' : this.model.accountDefaultScreen,
+      view               : 'login',
       customUsername     : true,
       registerValid      : false,
       loginValid         : false,
@@ -109,52 +115,24 @@ export default {
 <template lang="pug">
   .account
     flux
-      //- Register
-      .register(v-if="view == 'register'" v-bind:class="{full:customUsername}" key="register" @keyup.enter="register")
-        .switcher
-          .item(@click="view = 'login'") I already have an account
-        .main-title
-          .txt Create an account 
-          label.required
-            .txt required
-        flux
-          label.username.required(v-if="customUsername" key="a" @keyup="validateFields")
-            .txt username
-            input.required(v-model="user" type="text" ref="username" spellcheck="false" @keyup="validateFields")
-          label.required(key="b")
-            .txt Email
-            input.required(v-model="email" type="text" spellcheck="false" @keyup="validateFields")
-          label.required(key="c")
-            .txt password
-            input.required(v-model="password" type="password" spellcheck="false" @keyup="validateFields")
-        br
-        .form-row
-          input.optional(type="text" v-model="name"    placeholder="Name"    spellcheck="false")
-          input.optional(type="text" v-model="phone"   placeholder="Phone"   spellcheck="false")
-        .form-row
-          input.optional(type="text" v-model="company" placeholder="Company" spellcheck="false")
-          dropdown.custom(v-model="role" ref="dd2")
-            .option(value="pick") Select your role
-            .option(value="dev") Dev
-            .option(value="cto") CTO
-            .option(value="ceo") CEO
-            .option(value="manager") Project Manager
-        .terms
-          checkbox(v-model="haveReadTerms" @input="validateFields")
-            .label I have read and agree to the
-          a(href="https://nanobox.io/legal/" target="BLANK") terms of use
 
-        .proceed
-          .username(v-if="email.length > 0 && !customUsername" )
-            .label Username
-            .user {{ user }}
-            .change(@click="customUsername = true") change
-          .btn.lifecycle(@click="register" v-bind:class="{disabled:!registerValid, ing:submittingRegister}") Submit
+      //- Register - Permanently hidden
+      .register(v-if="view == 'never-show-register'" v-bind:class="{full:customUsername}" key="register" @keyup.enter="register")
+        .switcher
+          .item(@click="view = 'login'") Login
+        img.merge(src='../assets/svg/compiled/merge-logos.svg')
+        .main-title
+          .txt Nanobox Joins DigitalOcean!
+        .announcement Some blurb and info here. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+        .actions
+          a(href="https://www.digitalocean.com/nanobox") Learn more
+          a.existing(@click="view = 'login'") Existing users login here
+
 
       //- Login
       .login(v-if="view == 'login'" key="login" @keyup.enter="login")
         .switcher
-          .item(@click="view = 'register'") Register
+          a(href="https://www.digitalocean.com/nanobox") Sign Up
           .item.divider(@click="view = 'reset'") Forgot Password
         .main-title Nanobox : Login
         label
@@ -212,8 +190,9 @@ export default {
         &:-moz-placeholder {color:#B4C6D1; }
       }
     }
-    .switcher{position: absolute;bottom: -23px; left: 0px; color:#96DBFF; font-size:15px; font-style:italic; display: flex;
-      .item  {cursor: pointer;
+    .switcher{position: absolute;bottom: -23px; left: 0px;  font-size:15px; font-style:italic; display: flex;
+      a,
+      .item  {cursor: pointer; color:#96DBFF;
         &:hover{color:white; }
         &.divider{
           &:before{content:" | "; color:#48BBEC; margin: 0 14px; font-style:normal}
@@ -227,9 +206,12 @@ export default {
     .forgot          {width:100%; height:100%; margin:0 auto; position: absolute; padding:45px 63px; }
 
     .register        {
-      .terms         {
-        a            {font-size: 16px; font-weight: $semibold; font-style: italic; margin-left:5px; color:#247EB5;
-          &:hover    {color:#005F99; text-decoration: underline; }
+      .merge         {max-width: 200px; margin-bottom:20px;}
+      .actions       {margin-top:20px;}
+      a              {font-size: 18px; font-weight: $semibold;  color:#008FE6; display: block; margin-bottom:10px;
+        &:hover      {color:#005F99; text-decoration: underline; }
+        &.existing   {
+          &:hover    {text-decoration: none}
         }
       }
       &.full         {
@@ -239,6 +221,7 @@ export default {
         }
         .form-row    {margin-bottom: 15px; }
       }
+      .announcement  {font-size: 18px; color:#778693; font-weight: $semibold; line-height: 1.5;}
     }
 
     // ------------------------------------ Login

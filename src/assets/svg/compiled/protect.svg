@@ -1,50 +1,32 @@
 <?xml version="1.0" encoding="iso-8859-1"?>
-<!-- Generator: Adobe Illustrator 21.1.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<!-- Generator: Adobe Illustrator 23.0.2, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
 <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
 	 viewBox="0 0 62.724 40.883" style="enable-background:new 0 0 62.724 40.883;" xml:space="preserve">
+<style type="text/css">
+	.st0{fill:none;stroke:#33658C;stroke-width:1.7946;stroke-miterlimit:10;}
+</style>
 <g id="protect_x60_63x41">
-	<path style="fill:none;stroke:#33658C;stroke-width:1.7946;stroke-miterlimit:10;" d="M40.067,23.022h-22.67
-		c-1.919,0-3.482,1.563-3.482,3.482s1.563,3.482,3.482,3.482h22.67c1.919,0,3.482-1.563,3.482-3.482S42.057,23.022,40.067,23.022z"
-		/>
-	<path style="fill:none;stroke:#33658C;stroke-width:1.7946;stroke-miterlimit:10;" d="M42.484,20.961c0,0,5.046-3.767,7.32-5.543
-		c2.274-1.777,10.305-1.919,10.305-1.919L45.539,25.154"/>
-	
-		<line style="fill:none;stroke:#33658C;stroke-width:1.7946;stroke-miterlimit:10;" x1="51.296" y1="17.053" x2="45.539" y2="21.53"/>
-	<path style="fill:none;stroke:#33658C;stroke-width:1.7946;stroke-miterlimit:10;" d="M27.275,31.834c0,0,1.137,2.203,3.127,1.208"
-		/>
-	<path style="fill:none;stroke:#33658C;stroke-width:1.7946;stroke-miterlimit:10;" d="M25.869,35.362c0,0,1.137,2.203,3.127,1.208"
-		/>
-	<path style="fill:none;stroke:#33658C;stroke-width:1.7946;stroke-miterlimit:10;" d="M24.275,38.52c0,0,1.137,2.203,3.127,1.208"
-		/>
-	
-		<line style="fill:none;stroke:#33658C;stroke-width:1.7946;stroke-miterlimit:10;" x1="21.235" y1="32.119" x2="16.047" y2="36.809"/>
-	
-		<line style="fill:none;stroke:#33658C;stroke-width:1.7946;stroke-miterlimit:10;" x1="24.859" y1="32.19" x2="18.534" y2="37.662"/>
-	<polyline style="fill:none;stroke:#33658C;stroke-width:1.7946;stroke-miterlimit:10;" points="40.352,18.758 27.204,5.256 
-		26.778,7.53 26.423,9.875 28.412,10.159 	"/>
-	
-		<line style="fill:none;stroke:#33658C;stroke-width:1.7946;stroke-miterlimit:10;" x1="29.478" y1="11.581" x2="29.194" y2="13.286"/>
-	
-		<line style="fill:none;stroke:#33658C;stroke-width:1.7946;stroke-miterlimit:10;" x1="31.113" y1="13.855" x2="30.9" y2="15.489"/>
-	
-		<line style="fill:none;stroke:#33658C;stroke-width:1.7946;stroke-miterlimit:10;" x1="32.89" y1="16.058" x2="32.605" y2="17.763"/>
-	
-		<line style="fill:none;stroke:#33658C;stroke-width:1.7946;stroke-miterlimit:10;" x1="34.595" y1="18.332" x2="34.311" y2="19.966"/>
-	<polyline style="fill:none;stroke:#33658C;stroke-width:1.7946;stroke-miterlimit:10;" points="37.722,13.215 41.204,3.337 
-		45.397,1.489 42.91,16.626 	"/>
-	<polyline style="fill:none;stroke:#33658C;stroke-width:1.7946;stroke-miterlimit:10;" points="12.28,23.946 1.762,4.829 
-		6.24,5.895 14.554,15.276 	"/>
-	
-		<line style="fill:none;stroke:#33658C;stroke-width:1.7946;stroke-miterlimit:10;" x1="7.59" y1="10.799" x2="13.986" y2="20.819"/>
-	
-		<line style="fill:none;stroke:#33658C;stroke-width:1.7946;stroke-miterlimit:10;" x1="36.443" y1="24.586" x2="36.443" y2="28.352"/>
-	
-		<line style="fill:none;stroke:#33658C;stroke-width:1.7946;stroke-miterlimit:10;" x1="38.291" y1="26.433" x2="34.595" y2="26.433"/>
-	
-		<line style="fill:none;stroke:#33658C;stroke-width:1.7946;stroke-miterlimit:10;" x1="34.879" y1="31.479" x2="40.281" y2="38.87"/>
-	<polyline style="fill:none;stroke:#33658C;stroke-width:1.7946;stroke-miterlimit:10;" points="16.118,21.103 16.829,16.413 
-		21.377,12.931 22.585,14.779 20.311,17.692 21.732,21.459 	"/>
-	<polyline style="fill:none;stroke:#33658C;stroke-width:1.7946;stroke-miterlimit:10;" points="23.082,18.616 26.494,16.839 
-		27.915,18.403 25.499,21.032 	"/>
+	<path class="st0" d="M40.067,23.022h-22.67c-1.919,0-3.482,1.563-3.482,3.482s1.563,3.482,3.482,3.482h22.67
+		c1.919,0,3.482-1.563,3.482-3.482S42.057,23.022,40.067,23.022z"/>
+	<path class="st0" d="M42.484,20.961c0,0,5.046-3.767,7.32-5.543c2.274-1.777,10.305-1.919,10.305-1.919L45.539,25.154"/>
+	<line class="st0" x1="51.296" y1="17.053" x2="45.539" y2="21.53"/>
+	<path class="st0" d="M27.275,31.834c0,0,1.137,2.203,3.127,1.208"/>
+	<path class="st0" d="M25.869,35.362c0,0,1.137,2.203,3.127,1.208"/>
+	<path class="st0" d="M24.275,38.52c0,0,1.137,2.203,3.127,1.208"/>
+	<line class="st0" x1="21.235" y1="32.119" x2="16.047" y2="36.809"/>
+	<line class="st0" x1="24.859" y1="32.19" x2="18.534" y2="37.662"/>
+	<polyline class="st0" points="40.352,18.758 27.204,5.256 26.778,7.53 26.423,9.875 28.412,10.159 	"/>
+	<line class="st0" x1="29.478" y1="11.581" x2="29.194" y2="13.286"/>
+	<line class="st0" x1="31.113" y1="13.855" x2="30.9" y2="15.489"/>
+	<line class="st0" x1="32.89" y1="16.058" x2="32.605" y2="17.763"/>
+	<line class="st0" x1="34.595" y1="18.332" x2="34.311" y2="19.966"/>
+	<polyline class="st0" points="37.722,13.215 41.204,3.337 45.397,1.489 42.91,16.626 	"/>
+	<polyline class="st0" points="12.28,23.946 1.762,4.829 6.24,5.895 14.554,15.276 	"/>
+	<line class="st0" x1="7.59" y1="10.799" x2="13.986" y2="20.819"/>
+	<line class="st0" x1="36.443" y1="24.586" x2="36.443" y2="28.352"/>
+	<line class="st0" x1="38.291" y1="26.433" x2="34.595" y2="26.433"/>
+	<line class="st0" x1="34.879" y1="31.479" x2="40.281" y2="38.87"/>
+	<polyline class="st0" points="16.118,21.103 16.829,16.413 21.377,12.931 22.585,14.779 20.311,17.692 21.732,21.459 	"/>
+	<polyline class="st0" points="23.082,18.616 26.494,16.839 27.915,18.403 25.499,21.032 	"/>
 </g>
 </svg>

@@ -8,7 +8,7 @@ export default class MasterShim {
       isModal : true,
 
       // `register`, `login`, `reset`  -  defaults to : register
-      accountDefaultScreen : 'register',
+      accountDefaultScreen : 'login',
 
       // Set this if we want to send them somewhere after logging in / creating account
       redirectAfterLogin: null,
@@ -62,7 +62,7 @@ export default class MasterShim {
   // Modifying the shim to simulate various scenarios
 
   setDataByString(str) {
-    this.data = JSON.Parson(str)
+    this.data = JSON.Parse(str)
   }
 
   login() {
