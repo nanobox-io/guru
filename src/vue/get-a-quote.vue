@@ -19,7 +19,7 @@ export default {
         automate
       p We are updating plan upgrades. In the mean time, contact us and we can quickly upgrade you manually.
       .phone +1 (801) 877-9494
-      a(href="mailto:jake@nanobox.io") jake@nanobox.io
+      a(href="mailto:hello@nanobox.io") hello@nanobox.io
 </template>
 
 <!--
