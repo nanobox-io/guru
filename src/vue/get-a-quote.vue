@@ -17,8 +17,8 @@ export default {
     .content
       .icon
         automate
-      p We are updating plan upgrades. In the mean time, contact us and we can quickly upgrade you manually.
-      a(href="mailto:hello@nanobox.io") hello@nanobox.io
+      p At this time we are no longer able to offer support to unpaid Nanobox customers. To be notified of DigitalOcean's upcoming application platform products, please visit
+      a(href="www.digitalocean.com/nanobox") www.digitalocean.com/nanobox
 </template>
 
 <!--
