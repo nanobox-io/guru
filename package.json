@@ -12,7 +12,7 @@
   "dependencies": {
     "bluebird": "^3.5.1",
     "lexi": "tolmark12/nanobox-lexi",
-    "lodash": "^4.17.4",
+    "lodash": "^4.17.19",
     "payments": "nanobox-io/dashboard-ui-payments",
     "save": "^2.3.1",
     "sequence": "Tolmark12/sequence",
